@@ -19,11 +19,11 @@ const apiActions = {
   //     url: "/user/profile",
   //     requiresAuth: true,
   //   },
-  //   signUp: {
-  //     method: "post",
-  //     url: "/user/signup",
-  //     requiresAuth: false,
-  //   },
+  signUp: {
+    method: "post",
+    url: "/user/signup",
+    requiresAuth: false,
+  },
 };
 // fonction pour gerer les appel a l'api avec l'action donnée
 export const performApiAction = async (action, token, data = {}) => {
