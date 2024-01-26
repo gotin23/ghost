@@ -1,8 +1,8 @@
 // Components
-import UserLoggedOut from "@/layouts/home/UserLoggedOut";
+import UserLoggedOut from "@/components/layouts/home/UserLoggedOut";
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between ">
+    <main className="flex min-h-screen  justify-center mt-[30vh]">
       <UserLoggedOut />
     </main>
   );
