@@ -2,7 +2,7 @@
 import UserLoggedOut from "@/components/layouts/home/UserLoggedOut";
 export default function Home() {
   return (
-    <main className="flex min-h-screen  justify-center mt-[30vh]">
+    <main className="flex min-h-screen  justify-center mt-[30vh] poppins">
       <UserLoggedOut />
     </main>
   );

@@ -21,7 +21,7 @@ const apiActions = {
   //   },
   signUp: {
     method: "post",
-    url: "/user/signup",
+    url: "/signup",
     requiresAuth: false,
   },
 };

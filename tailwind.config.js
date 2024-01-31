@@ -6,7 +6,8 @@ module.exports = {
     colors: {
       black: "#041404",
       primary: "#C2F970",
-      red: "red",
+      grey: "#BFCBC2",
+      primaryHover: "#c1d5a5",
     },
     screens: {
       "2xl": { max: "1535px" },
