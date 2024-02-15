@@ -3,15 +3,17 @@ import Title from "@/components/Title/Title";
 import Button from "@/components/Button/Button";
 import InputText from "@/components/InputText/InputText";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { performApiAction } from "@/Services/Api/Api";
+import { useRouter } from "next/navigation";
 import { setLogin } from "@/redux/Reducers/LogReducer";
 
 const Login = () => {
   const [inputValue, setInputValue] = useState({ username: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleUsername = (value) => {
     setInputValue((state) => ({
@@ -34,11 +36,10 @@ const Login = () => {
         username: inputValue.username,
         password: inputValue.password,
       });
-      // Dispatch l'action setSignIn avec le token reçu de l'API
+
       dispatch(setLogin({ response }));
-      // redirection vers son profile
-      // navigate("/user");
-      console.log(response);
+
+      router.push("/");
     } catch (error) {
       // Gérer les erreurs de la requête API
       console.log(error);

@@ -3,7 +3,7 @@ import Title from "@/components/Title/Title";
 import Button from "@/components/Button/Button";
 import InputText from "@/components/InputText/InputText";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 import { performApiAction } from "@/Services/Api/Api";
@@ -13,8 +13,7 @@ import ValidationIconGreen from "../../../public/assets/icons/validation-success
 const SignUp = () => {
   const [inputValue, setInputValue] = useState({ username: "", email: "", password: "", passwordConfirmation: "" });
   const [errorMessage, setErrorMessage] = useState("");
-  const token = useSelector((state) => state.log.token);
-  console.log(token);
+
   const handleUsername = (value) => {
     setInputValue((state) => ({
       ...state,

@@ -9,11 +9,11 @@ const apiActions = {
     url: "/login/password",
     requiresAuth: false,
   },
-  //   getProfile: {
-  //     method: "post",
-  //     url: "/user/profile",
-  //     requiresAuth: true,
-  //   },
+  getProfile: {
+    method: "get",
+    url: "/profile",
+    requiresAuth: true,
+  },
   //   editUser: {
   //     method: "put",
   //     url: "/user/profile",
