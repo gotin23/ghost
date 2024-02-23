@@ -11,7 +11,7 @@ const apiActions = {
   },
   getProfile: {
     method: "get",
-    url: "/profile",
+    url: "/profiles",
     requiresAuth: true,
   },
   //   editUser: {

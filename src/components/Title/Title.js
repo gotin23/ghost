@@ -3,7 +3,7 @@ const Title = ({ level, text, style }) => {
 
   return (
     <>
-      <TagName className={`${style} text-primary poppins`}>{text}</TagName>
+      <TagName className={`poppins ${style}`}>{text}</TagName>
     </>
   );
 };

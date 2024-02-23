@@ -67,7 +67,7 @@ const SignUp = () => {
   return (
     <main className="flex min-h-screen justify-center items-center w-full">
       <section className="w-[680px]">
-        <Title level={3} text="Sign up" style="text-6xl text-center mt-5 items-center justify-center" />
+        <Title level={3} text="Sign up" style="text-primary text-6xl text-center mt-5 items-center justify-center " />
         <form className="flex flex-col p-10">
           <div className="flex justify-between ">
             <InputText
