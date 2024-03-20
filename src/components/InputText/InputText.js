@@ -6,7 +6,7 @@ const InputText = ({ onInputChange, value, id, type, placeholder, autoFocus, sty
 
   return (
     <div className={`flex flex-col  w-full ${style}`}>
-      <label className="text-lg text-primary  poppins" htmlFor={id}>
+      <label className="text-lg text-primary  poppins text-start" htmlFor={id}>
         {id}
       </label>
       <input

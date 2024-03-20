@@ -7,6 +7,8 @@ import Title from "@/components/Title/Title";
 import ProfileIcon from "@/components/ProfileIcon/ProfileIcon";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
+import AddNewProfile from "../addNewProfile/AddNewProfile";
+import kidIcon from "../../../../public/assets/icons/kid-icon.png";
 
 const SelectProfile = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -14,49 +16,61 @@ const SelectProfile = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.log.token);
   const profiles = useSelector((state) => state.profiles);
-  const addNewUserButton = profiles.length <= 5 ? true : false;
+  const addNewUserButton = profiles.profiles.length;
+  console.log(addNewUserButton);
   console.log(addNewUserButton, profiles.profiles);
+  const fetchData = async () => {
+    console.log("on charge la data");
+    try {
+      const data = await performApiAction("getProfile", token, {});
+      console.log(data, "lanouvelle data");
 
+      dispatch(setProfiles({ data }));
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await performApiAction("getProfile", token, {});
-
-        dispatch(setProfiles({ data }));
-      } catch (error) {
-        console.log(error, "error");
-      }
-    };
     fetchData();
   }, []);
+
+  const deleteProfile = async (id) => {
+    console.log(id);
+    try {
+      await performApiAction("deleteProfile", token, { id });
+      fetchData();
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
 
   return (
     <section className="text-center min-h-[400px]">
       <Title text={"Who it is?"} level={2} style={"text-6xl text-primary"} />
 
       <ul className="flex items-center justify-center mt-10 gap-3">
-        {/* {profiles && (
-          <li>
-            <ProfileIcon src={profiles.admin.avatar} username={profiles.admin.username} />
-          </li>
-        )} */}
         {profiles &&
           profiles.profiles.map((user, idx) => {
             if (user.avatar) {
               return (
-                <li key={idx}>
+                <li key={idx} className="relative">
+                  <p className="absolute right-3 cursor-pointer" onClick={() => deleteProfile(user._id)}>
+                    X
+                  </p>
+
+                  {user.role === "child" && <Image src={kidIcon} width={30} height={150} alt={"add icon colored"} className="absolute right-0" />}
                   <ProfileIcon src={user.avatar} username={user.username} />
                 </li>
               );
             }
           })}
-        {!addNewUserButton && (
+        {addNewUserButton < 5 && (
           <li>
             {" "}
             <div className="flex flex-col items-center justify-center cursor-pointer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
               <div className={`w-[200px] h-[200px] flex  justify-center border-primary rounded-lg ${isHovered && "border-4"}`} onClick={() => setNewProfile(true)}>
                 {!isHovered && profiles ? (
-                  <Image src={"/assets/icons/addIcon-grey.svg"} width={140} height={140} alt={"ad icon grey"} className=" w-auto" />
+                  <Image src={"/assets/icons/addIcon-grey.svg"} width={140} height={140} alt={"add icon grey"} className=" w-auto" />
                 ) : (
                   <Image src={"/assets/icons/addIcon-color.svg"} width={140} height={140} alt={"add icon colored"} className=" w-auto" />
                 )}
@@ -69,9 +83,9 @@ const SelectProfile = () => {
 
       <Button text={"Manage profiles"} style={"mt-20 px-3 py-2"} />
       {newProfile && (
-        <div className="inset-0 absolute bg-black flex justify-center items-center" onClick={() => setNewProfile(false)}>
-          <section className="min-h-[400px]">
-            <Title text={"Add new profile"} level={2} style={"text-6xl text-primary"} />
+        <div className="inset-0 absolute bg-black flex justify-center items-center">
+          <section className="min-h-[400px] max-w-[500px] ">
+            <AddNewProfile props={token} modal={setNewProfile} updateData={fetchData} />
           </section>
         </div>
       )}

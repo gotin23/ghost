@@ -2,37 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
- @font-face {
-    font-family: 'poppins';
-    src:url("../../public/assets/fonts/Poppins/Poppins-Regular.ttf");
+@font-face {
+  font-family: "poppins";
+  src: url("../../public/assets/fonts/Poppins/Poppins-Regular.ttf");
 }
-.poppins{
-    font-family: 'poppins';
-} 
+.poppins {
+  font-family: "poppins";
+}
 
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "poppins", "sans-serif", "Helvetica Neue", Helvetica, Arial;
+  background-color: #041404;
 
-
-  
-  
-  *,
-  ::after,
-  ::before {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-
-  }
-  html{
-    scroll-behavior: smooth;
-  }
-  body{
-    font-family:'poppins',  'sans-serif','Helvetica Neue',Helvetica,Arial;
-    background-color:#041404;
-  
-    /* background-color:  #c1d5a5 */
-
-
-  }
+  /* background-color:  #c1d5a5 */
+}

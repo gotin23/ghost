@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { setLogin } from "@/redux/Reducers/LogReducer";
 
 const Login = () => {
-  const [inputValue, setInputValue] = useState({ username: "", password: "" });
+  const [inputValue, setInputValue] = useState({ username: "", password: "Killer23" });
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
@@ -53,7 +53,7 @@ const Login = () => {
         <Title level={3} text="Login" style="text-6xl text-primary text-center mt-5 items-center justify-center" />
         <form className="flex flex-col p-10">
           <InputText type="text" id="Username" placeholder="Enter your username" autoFocus={true} onInputChange={handleUsername} />
-          <InputText type="password" id="Password" placeholder="Enter your password" onInputChange={handlePassword} style={"mt-5"} />
+          <InputText type="password" id="Password" value={inputValue.password} placeholder="Enter your password" onInputChange={handlePassword} style={"mt-5"} />
           <p className="text-primary mt-3">{errorMessage}</p>
           <div className="mt-10 px-10">
             <Button type={"submit"} text={"Login"} style={"w-[100%]"} onClick={handleSignIn} />

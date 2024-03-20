@@ -10,8 +10,8 @@ const ProfileIcon = ({ src, username }) => {
     <div className={`flex flex-col items-center justify-center cursor-pointer`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <Image
         src={`/assets/avatar/${src}.png`}
-        width={350}
-        height={350}
+        width={200}
+        height={200}
         className={`w-[200px]   rounded-lg border-4  ${isHovered && "border-primary"}`}
         alt={src + " of " + username}
       />
