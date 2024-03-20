@@ -8,5 +8,7 @@ const router = express.Router();
 
 router.get("/profiles", profilesController.authenticateToken, profilesController.getProfile);
 router.put("/profiles", profilesController.authenticateToken, profilesController.modifyProfile);
+router.post("/profiles", profilesController.authenticateToken, profilesController.addNewProfile);
+router.delete("/profiles", profilesController.authenticateToken, profilesController.deleteProfile);
 
 module.exports = router;
