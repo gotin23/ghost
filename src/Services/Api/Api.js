@@ -24,6 +24,11 @@ const apiActions = {
     url: "/profiles",
     requiresAuth: true,
   },
+  modifyProfile: {
+    method: "put",
+    url: "/profiles",
+    requiresAuth: true,
+  },
   //   editUser: {
   //     method: "put",
   //     url: "/user/profile",

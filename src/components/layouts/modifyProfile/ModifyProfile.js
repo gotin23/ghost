@@ -3,12 +3,13 @@ import InputText from "@/components/InputText/InputText";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
 import Title from "@/components/Title/Title";
-import HoverCard from "@/components/HoverCard/HoverCard";
 import { performApiAction } from "@/Services/Api/Api";
 import { useState } from "react";
+import HoverCard from "@/components/HoverCard/HoverCard";
 
-const AddNewProfile = ({ props, modal, updateData }) => {
-  const [profile, setProfile] = useState({ username: "", avatar: "avatar2", role: "normal", passwordConfirmation: "" });
+const AddNewProfile = ({ props, modal, username, id, role, avatar, updateData }) => {
+  const [profile, setProfile] = useState({ username: username, avatar: avatar, role: role });
+  console.log(profile);
   const [selectAvatarOpen, setSelectAvatarOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -29,11 +30,11 @@ const AddNewProfile = ({ props, modal, updateData }) => {
       role: isChecked ? "child" : "normal",
     }));
   };
-  console.log(profile.role);
-  const addNewProfile = () => {
+
+  const modifyProfile = () => {
     const fetchData = async () => {
       try {
-        await performApiAction("addNewProfile", token, { username: profile.username, avatar: profile.avatar, role: profile.role });
+        await performApiAction("modifyProfile", token, { id: id, username: profile.username, avatar: profile.avatar, role: profile.role });
 
         updateData();
         modal(false);
@@ -46,16 +47,15 @@ const AddNewProfile = ({ props, modal, updateData }) => {
   };
 
   const avatarSelected = (avatar) => {
-    console.log(avatar, "hello");
     setProfile((state) => ({ ...state, avatar: "avatar" + avatar }));
     setSelectAvatarOpen(false);
   };
 
   return (
-    <section className="flex flex-col items-center justify-center ">
-      <Title text={"Add new profile?"} level={2} style={"text-6xl text-primary whitespace-nowrap"} />
+    <section className="flex items-center justify-center flex-col ">
+      <Title text={"Modify your profile?"} level={2} style={"text-6xl text-primary whitespace-nowrap text-center"} />
       <div className="p-10 w-[500px]">
-        <InputText id="Choose a username" placeholder="Your username here" onInputChange={handleUsername} style={"mt-5"} />
+        <InputText id="username" value={profile.username} placeholder="Your username here" onInputChange={handleUsername} style={"mt-5"} />
         <div className="flex justify-between items-center mt-10 relative">
           <p className="text-lg text-primary">Select your avatar:</p>
           <Image
@@ -75,7 +75,7 @@ const AddNewProfile = ({ props, modal, updateData }) => {
                   </div>
                 );
               })}
-              <div className="w-[20px] h-[20px] bg-primary absolute left-[-10px] top-48 rotate-45 "></div>
+              <div className="w-[20px] h-[20px] bg-primary absolute left-[-10px] top-48 rotate-45 z-20"></div>
             </div>
           )}
         </div>
@@ -88,8 +88,9 @@ const AddNewProfile = ({ props, modal, updateData }) => {
             <input
               type="checkbox"
               id="roleCheckbox"
+              checked={profile.role === "child" ? true : false}
               onChange={handleRoleChange}
-              className="ml-8 w-10 cursor-pointer"
+              className="ml-5 w-8 cursor-pointer"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             />
@@ -98,7 +99,7 @@ const AddNewProfile = ({ props, modal, updateData }) => {
         <p className="mt-10 h-[30px] text-primary w-[100%]">{errorMessage}</p>
         <div className="flex justify-between">
           <Button text={"Cancel"} style={"mt-10 px-3 py-2"} onClick={() => modal(false)} />
-          <Button text={"Add profile"} style={"mt-10 px-3 py-2"} onClick={addNewProfile} />
+          <Button text={"Modify profile"} style={"mt-10 px-3 py-2"} onClick={modifyProfile} />
         </div>
       </div>
     </section>
