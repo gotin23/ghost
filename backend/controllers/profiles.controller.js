@@ -32,27 +32,31 @@ async function getProfile(req, res) {
 async function modifyProfile(req, res) {
   try {
     const userId = req.user.userId;
-    const { username, avatar, position } = req.body; // Supposons que vous envoyez ces nouvelles valeurs depuis le frontend
+    const { id, username, avatar, role } = req.body; // Supposons que vous envoyez ces nouvelles valeurs depuis le frontend
 
     // Récupérer l'utilisateur actuel
     const user = await User.findById(userId).populate("profile");
-    console.error(username, avatar, user.profile.secondaryUsers[0]);
+    const index = user.profile.Profiles.findIndex((el) => el.id === id);
+    console.log(id, username, avatar, role, index, user.profile.Profiles);
+
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
+    if (username.length < 3 || username.length > 15) {
+      return res.status(400).json({ message: "your username must be between 3 characters and 16 characters" });
+    }
 
-    if (user.profile.secondaryUsers.length > 0) {
-      user.profile.secondaryUsers[position].username = username;
-      user.profile.secondaryUsers[position].avatar = avatar;
+    if (index !== -1) {
+      user.profile.Profiles[index].username = username;
+      user.profile.Profiles[index].avatar = avatar;
+      user.profile.Profiles[index].role = role;
     } else {
-      // Si secondaryUsers est vide, ajoutez le premier objet
-      user.profile.secondaryUsers.push({ username: username, avatar: avatar });
     }
 
     // Enregistrer les modifications
     await user.profile.save();
 
-    res.json(user.profile.secondaryUsers); // Renvoyer le premier objet mis à jour
+    res.json(user.profile.Profiles[index]); // Renvoyer le premier objet mis à jour
   } catch (err) {
     console.error("Erreur lors de la modification du profil de l'utilisateur :", err);
     res.status(500).json({ message: "Erreur serveur" });
