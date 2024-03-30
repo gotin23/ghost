@@ -10,6 +10,7 @@ const LogSlice = createSlice({
       state.token = action.payload.response.token;
     },
     setLogout: (state, action) => {
+      console.log(action.payload);
       state.token = action.payload.token;
     },
   },
