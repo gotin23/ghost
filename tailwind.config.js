@@ -6,11 +6,12 @@ module.exports = {
     colors: {
       // black: "#192324",
       black: "#041404",
-      // primary: "#C2F970",
-      primary: "#70FFF1",
+      primary: "#C2F970",
+      // primary: "#70FFF1",
       grey: "#BFCBC2",
+      white: "#F2f2f2f2",
       primaryHover: "#EBFFFD",
-      // primaryHover: "#c1d5a5",
+      // // primaryHover: "#c1d5a5",
     },
     screens: {
       "2xl": { max: "1535px" },

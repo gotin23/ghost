@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const ProfileIcon = ({ src, username }) => {
   const [isHovered, setIsHovered] = useState(false);
-  console.log(src, username, "ici");
+
   return (
     <div className={`flex flex-col items-center justify-center cursor-pointer`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <Image

@@ -6,6 +6,7 @@ import Title from "@/components/Title/Title";
 import { performApiAction } from "@/Services/Api/Api";
 import { useState } from "react";
 import HoverCard from "@/components/HoverCard/HoverCard";
+import penIcon from "../../../../public/assets/icons/pen-icon.svg";
 
 const AddNewProfile = ({ props, modal, username, id, role, avatar, updateData }) => {
   const [profile, setProfile] = useState({ username: username, avatar: avatar, role: role });
@@ -58,14 +59,13 @@ const AddNewProfile = ({ props, modal, username, id, role, avatar, updateData })
         <InputText id="username" value={profile.username} placeholder="Your username here" onInputChange={handleUsername} style={"mt-5"} />
         <div className="flex justify-between items-center mt-10 relative">
           <p className="text-lg text-primary">Select your avatar:</p>
-          <Image
-            src={`/assets/avatar/${profile.avatar}.png`}
-            width={80}
-            height={80}
-            className={`w-[80px] rounded-lg border-4 cursor-pointer`}
-            alt={"profile-image"}
-            onClick={() => setSelectAvatarOpen(true)}
-          />
+          <div className="relative">
+            <Image src={`/assets/avatar/${profile.avatar}.png`} width={80} height={80} className={`w-[80px] rounded-lg`} alt={"profile-image"} />
+            <div className="absolute inset-0 flex justify-center items-center  bg-[#00000087] cursor-pointer" onClick={() => setSelectAvatarOpen(true)}>
+              <Image src={penIcon} width={30} height={30} className={`w-[30px]`} alt={"pen icon"} />
+            </div>
+          </div>
+
           {selectAvatarOpen && (
             <div className="flex justify-center flex-wrap absolute right-[-330px] w-[300px] h-[400px] bg-black border-2 border-primary rounded-xl p-5 gap-2">
               {avatarList.map((el) => {
@@ -90,13 +90,13 @@ const AddNewProfile = ({ props, modal, username, id, role, avatar, updateData })
               id="roleCheckbox"
               checked={profile.role === "child" ? true : false}
               onChange={handleRoleChange}
-              className="ml-5 w-8 cursor-pointer"
+              className="ml-5 w-[25px] h-[25px]  cursor-pointer"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             />
           </div>
         </div>
-        <p className="mt-10 h-[30px] text-primary w-[100%]">{errorMessage}</p>
+        <p className="mt-5 h-[30px] text-primary w-[100%]">{errorMessage}</p>
         <div className="flex justify-between">
           <Button text={"Cancel"} style={"mt-10 px-3 py-2"} onClick={() => modal(false)} />
           <Button text={"Modify profile"} style={"mt-10 px-3 py-2"} onClick={modifyProfile} />

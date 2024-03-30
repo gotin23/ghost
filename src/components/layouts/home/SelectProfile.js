@@ -2,7 +2,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { performApiAction } from "@/Services/Api/Api";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { setProfiles } from "@/redux/Reducers/ProfilesReducer";
+import { setProfileSelected } from "@/redux/Reducers/ProfileSelectedReducer";
 import Title from "@/components/Title/Title";
 import ProfileIcon from "@/components/ProfileIcon/ProfileIcon";
 import Image from "next/image";
@@ -23,6 +26,8 @@ const SelectProfile = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.log.token);
   const profiles = useSelector((state) => state.profiles);
+  const router = useRouter();
+  const profileSelected = useSelector((state) => state.profiles);
   const addNewUserButton = profiles.profiles.length;
 
   const fetchData = async () => {
@@ -40,7 +45,7 @@ const SelectProfile = () => {
     fetchData();
   }, []);
 
-  const deleteProfile = async (id) => {
+  const deleteProfile = async (id, username) => {
     console.log(id, "iciicicicic");
 
     if (modalDeleteConfirmation) {
@@ -52,7 +57,7 @@ const SelectProfile = () => {
         console.log(error, "error");
       }
     } else {
-      setManageProfile({ id: id });
+      setManageProfile({ username: username, id: id });
       setModalDeleteConfirmation(true);
     }
   };
@@ -60,6 +65,13 @@ const SelectProfile = () => {
     console.log(username, "c par la");
     setProfileToUpdate({ username: username, avatar: avatar, id: id, role: role });
     setModalManageProfile(true);
+  };
+
+  const redirectToBrowse = (profile) => {
+    if (!manageProfile) {
+      dispatch(setProfileSelected({ profile }));
+      router.push("/browse");
+    }
   };
 
   return (
@@ -71,14 +83,20 @@ const SelectProfile = () => {
           profiles.profiles.map((user, idx) => {
             if (user.avatar) {
               return (
-                <li key={idx} className="relative">
+                // <Link href={"/browse"}>
+                <li key={idx} className="relative" onClick={() => redirectToBrowse(user)}>
                   {manageProfile && (
-                    <div className="absolute top-3 right-3 z-20 cursor-pointer transition hover:scale-[1.3] w-[20px] h-[20px] z-50" onClick={() => deleteProfile(user._id)}>
+                    <div
+                      className="absolute top-3 right-3 cursor-pointer transition hover:scale-[1.3] w-[20px] h-[20px] z-50"
+                      onClick={() => deleteProfile(user._id, user.username)}
+                    >
                       <Image src={trashIcon} width={20} height={20} alt={"trash icon"} className="w-[100%] " />
                     </div>
                   )}
                   <div className="relative overflow-hidden">
-                    {user.role === "child" && <Image src={kidIcon} width={30} height={150} alt={"kid icon"} className="absolute left-[10px] top-[-28px] rotate-45 rounded-xl" />}
+                    {user.role === "child" && (
+                      <Image src={kidIcon} width={30} height={150} alt={"kid icon"} className="absolute left-[50%] translate-x-[-50%] bottom-[28px] rotate-90 rounded-xl" />
+                    )}
                     <ProfileIcon src={user.avatar} username={user.username} />
                     {manageProfile && (
                       <div
@@ -91,6 +109,7 @@ const SelectProfile = () => {
                     )}
                   </div>
                 </li>
+                // </Link>
               );
             }
           })}
@@ -100,9 +119,9 @@ const SelectProfile = () => {
             <div className="flex flex-col items-center justify-center cursor-pointer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
               <div className={`w-[200px] h-[200px] flex  justify-center border-primary rounded-lg ${isHovered && "border-4"}`} onClick={() => setNewProfile(true)}>
                 {!isHovered && profiles ? (
-                  <Image src={"/assets/icons/addIcon-grey.svg"} width={140} height={140} alt={"add icon grey"} className=" w-auto" />
+                  <Image src={"/assets/icons/addIcon-grey.svg"} width={100} height={100} alt={"add icon grey"} className="" />
                 ) : (
-                  <Image src={"/assets/icons/addIcon-color.svg"} width={140} height={140} alt={"add icon colored"} className=" w-auto" />
+                  <Image src={"/assets/icons/addIcon-color.svg"} width={100} height={100} alt={"add icon colored"} />
                 )}
               </div>
               <Title text={"Add new profile"} level={3} style={`mt-5 text-xl ${!isHovered ? "text-grey" : "text-primary"}`} />
@@ -132,7 +151,7 @@ const SelectProfile = () => {
       )}
       {modalDeleteConfirmation && (
         <div className="inset-0 absolute bg-black flex flex-col justify-center items-center z-50">
-          <Title text={"Are you sure to delete that user ?"} level={3} style={"text-3xl text-primary"} />
+          <Title text={`Are you sure to delete ${manageProfile.username} profile?`} level={3} style={"text-3xl text-primary"} />
           <div className="min-w-[400px] flex justify-between">
             <Button text={"no"} style={"mt-20 px-3 py-2"} onClick={() => setModalDeleteConfirmation(false)} />
             <Button text={"yes"} style={"mt-20 px-3 py-2"} onClick={() => deleteProfile(manageProfile.id)} />

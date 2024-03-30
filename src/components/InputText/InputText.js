@@ -10,7 +10,7 @@ const InputText = ({ onInputChange, value, id, type, placeholder, autoFocus, sty
         {id}
       </label>
       <input
-        className="py-2 px-3 rounded-lg mt-3 outline-8 outline-offset-2 outline-primary poppins"
+        className="py-2 px-2 rounded-lg mt-2 outline-8 outline-offset-2 outline-primary poppins text-sm"
         type={type}
         value={value}
         placeholder={placeholder}
