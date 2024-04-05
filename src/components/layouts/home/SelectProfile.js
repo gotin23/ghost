@@ -31,10 +31,8 @@ const SelectProfile = () => {
   const addNewUserButton = profiles.profiles.length;
 
   const fetchData = async () => {
-    console.log("on charge la data");
     try {
       const data = await performApiAction("getProfile", token, {});
-      console.log(data, "lanouvelle data");
 
       dispatch(setProfiles({ data }));
     } catch (error) {
@@ -46,8 +44,6 @@ const SelectProfile = () => {
   }, []);
 
   const deleteProfile = async (id, username) => {
-    console.log(id, "iciicicicic");
-
     if (modalDeleteConfirmation) {
       try {
         await performApiAction("deleteProfile", token, { id });
@@ -62,7 +58,6 @@ const SelectProfile = () => {
     }
   };
   const openModalManageProfile = async (username, id, role, avatar) => {
-    console.log(username, "c par la");
     setProfileToUpdate({ username: username, avatar: avatar, id: id, role: role });
     setModalManageProfile(true);
   };
@@ -130,7 +125,10 @@ const SelectProfile = () => {
         )}
       </ul>
 
-      <Button text={manageProfile ? "Cancel" : "Manage profiles"} style={"mt-20 px-3 py-2"} onClick={() => setManageProfile(!manageProfile)} />
+      {/* <Button text={manageProfile ? "Cancel" : "Manage profiles"} style={"mt-20 px-3 py-2"} onClick={() => setManageProfile(!manageProfile)} /> */}
+      <button className="bg-black text-grey min-w-[160px]  border-2 mt-20 py-2 px-5 text-xl hover:text-white hover:border-white" onClick={() => setManageProfile(!manageProfile)}>
+        {manageProfile ? "Back" : "Manage profiles"}
+      </button>
       {newProfile && (
         <div className="inset-0 absolute bg-black flex justify-center items-center">
           <AddNewProfile props={token} modal={setNewProfile} updateData={fetchData} />

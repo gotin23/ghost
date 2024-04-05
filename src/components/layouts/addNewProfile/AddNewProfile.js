@@ -30,7 +30,7 @@ const AddNewProfile = ({ props, modal, updateData }) => {
       role: isChecked ? "child" : "normal",
     }));
   };
-  console.log(profile.role);
+
   const addNewProfile = () => {
     const fetchData = async () => {
       try {
@@ -47,7 +47,6 @@ const AddNewProfile = ({ props, modal, updateData }) => {
   };
 
   const avatarSelected = (avatar) => {
-    console.log(avatar, "hello");
     setProfile((state) => ({ ...state, avatar: "avatar" + avatar }));
     setSelectAvatarOpen(false);
   };

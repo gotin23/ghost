@@ -54,7 +54,7 @@ const Login = () => {
         <form className="flex flex-col p-10">
           <InputText type="text" id="Username" placeholder="Enter your username" autoFocus={true} onInputChange={handleUsername} />
           <InputText type="password" id="Password" value={inputValue.password} placeholder="Enter your password" onInputChange={handlePassword} style={"mt-5"} />
-          <p className="text-primary mt-3">{errorMessage}</p>
+          <p className="text-primary mt-8 min-h-[25px] text-center">{errorMessage}</p>
           <div className="mt-10 px-10">
             <Button type={"submit"} text={"Login"} style={"w-[100%]"} onClick={handleSignIn} />
           </div>

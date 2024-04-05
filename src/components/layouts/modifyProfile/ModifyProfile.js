@@ -10,7 +10,7 @@ import penIcon from "../../../../public/assets/icons/pen-icon.svg";
 
 const AddNewProfile = ({ props, modal, username, id, role, avatar, updateData }) => {
   const [profile, setProfile] = useState({ username: username, avatar: avatar, role: role });
-  console.log(profile);
+
   const [selectAvatarOpen, setSelectAvatarOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");

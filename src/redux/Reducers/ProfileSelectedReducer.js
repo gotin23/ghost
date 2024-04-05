@@ -7,7 +7,6 @@ const ProfileSelectedSlice = createSlice({
   },
   reducers: {
     setProfileSelected: (state, action) => {
-      console.log(action.payload.profile, "regarde");
       state.profile = action.payload.profile;
     },
   },

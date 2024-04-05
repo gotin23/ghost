@@ -94,33 +94,33 @@ const SignUp = () => {
             />
           </div>
           <p className="text-primary mt-10 mb-3 px-5 text-lg">Your password need:</p>
-          <div className="flex justify-between px-5 mb-5">
+          <div className="flex justify-around px-5 mb-5">
             <div className="flex items-center  flex-col justify-center ">
-              <p className="text-primary  mb-2 text-sm ">Uppercase</p>
+              <p className="text-primary  mb-1 text-sm ">Uppercase</p>
               {/\p{Lu}/u.test(inputValue.password) ? (
                 <Image src={ValidationIconGreen} width={18} alt="validation icon" />
               ) : (
                 <Image src={ValidationIcon} width={18} alt="validation icon" />
               )}
             </div>
-            <div className="flex items-center">
-              <p className="text-primary mr-2 text-sm">Number</p>
+            <div className="flex items-center flex-col justify-center ">
+              <p className="text-primary mr-2 mb-1 text-sm">Number</p>
               {/\d/.test(inputValue.password) ? (
                 <Image src={ValidationIconGreen} width={18} alt="validation icon" />
               ) : (
                 <Image src={ValidationIcon} width={18} alt="validation icon" />
               )}
             </div>
-            <div className="flex items-center">
-              <p className="text-primary mr-2 text-sm">8 characters min</p>
+            <div className="flex items-center flex-col justify-center ">
+              <p className="text-primary mr-2 mb-1 text-sm">8 characters min</p>
               {inputValue.password.length >= 8 ? (
                 <Image src={ValidationIconGreen} width={18} alt="validation icon" />
               ) : (
                 <Image src={ValidationIcon} width={18} alt="validation icon" />
               )}
             </div>
-            <div className="flex items-center">
-              <p className="text-primary mr-2 text-sm">Confirmation</p>
+            <div className="flex items-center flex-col justify-center ">
+              <p className="text-primary mr-2 mb-1 text-sm">Confirmation</p>
               {inputValue.password === inputValue.passwordConfirmation && inputValue.password.length >= 8 ? (
                 <Image src={ValidationIconGreen} width={18} alt="validation icon" />
               ) : (
@@ -129,7 +129,7 @@ const SignUp = () => {
             </div>
           </div>
 
-          <p className="text-primary mt-3 px-5 min-h-[24px] text-right">{errorMessage}</p>
+          <p className="text-primary mt-3 px-5 min-h-[24px] text-center">{errorMessage}</p>
           <div className="flex justify-around mt-5">
             <Button type={"submit"} text={"Sign Up"} style={"w-[50%]"} onClick={handleSignUp} />
           </div>
