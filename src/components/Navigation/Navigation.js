@@ -2,25 +2,28 @@
 import Image from "next/image";
 import Title from "../Title/Title";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setProfileSelected } from "@/redux/Reducers/ProfileSelectedReducer";
 import { setLogout } from "@/redux/Reducers/LogReducer";
 import triangleIcon from "../../../public/assets/icons/triangle-icon.svg";
+import triangleColorIcon from "../../../public/assets/icons/triangle-color-icon.svg";
 import logoutIcon from "../../../public/assets/icons/logout-icon.svg";
 import penIcon from "../../../public/assets/icons/pen-icon.svg";
 import helpIcon from "../../../public/assets/icons/help-icon.svg";
 import accountIcon from "../../../public/assets/icons/account-icon.svg";
+import searchIcon from "../../../public/assets/icons/search-icon.svg";
 
-const Navigation = () => {
+const Navigation = ({ style }) => {
   const [profilePictureIsHovered, setProfilePictureIsHovered] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [accountIsHovered, setAccountIsHovered] = useState(false);
   const [helpIsHovered, setHelpIsHovered] = useState(false);
   const [changeProfileIsHovered, setChangeProfileIsHovered] = useState(false);
+  const [searchBarIsOpen, setSearchBarIsOpen] = useState(false);
   const profiles = useSelector((state) => state.profiles.profiles);
-  console.log(profiles);
+
   const profileSelected = useSelector((state) => state.profileSelected.profile);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -46,21 +49,77 @@ const Navigation = () => {
     dispatch(setLogout({ token }));
     router.push("/");
   };
+  // const toggleSeachBar = () => {
+
+  //     setSearchBarIsOpen(false);
+  //   }
+  // }
+  const searchInputRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchInputRef.current && !searchInputRef.current.contains(event.target)) {
+        setSearchBarIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchInputRef]);
 
   return (
-    <nav className={`h-[70px] w-full bg-black fixed top-0 flex justify-between py-0 px-8`}>
-      <Link href={"/browse"} className={"h-full flex items-center"}>
-        <Title style="text-xl text-primary cursor-pointer" level={2} text={"Ghost"} />
-      </Link>
-      <div className={"h-full flex items-center"}>
-        <div className="flex items-center relative " onMouseEnter={toggleModalProfilePicture} onMouseLeave={() => toggleModalProfilePicture()}>
-          <Image src={`/assets/avatar/${profileSelected.avatar}.png`} width={30} height={30} alt="profile picture" className="rounded-sm mr-2" />
+    <nav className={`h-[60px] w-full ${style} fixed top-0 flex justify-between py-0 px-8 z-50`}>
+      {/* Navigation */}
+      <div className="flex">
+        <Link href={"/browse"} className={"h-full flex items-center"}>
+          <Title style=" text-primary cursor-pointer text-3xl" level={2} text={"Ghost"} />
+        </Link>
+        <ul className="flex ml-20">
+          <li>
+            <Link href={"/browse"} className={"h-full flex items-center text-white hover:text-grey"}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link href={"/browse/series"} className={"h-full flex items-center text-white ml-5 hover:text-grey"}>
+              Series
+            </Link>
+          </li>
+          <li>
+            <Link href={"/browse/movies"} className={"h-full flex items-center  text-white ml-5 hover:text-grey"}>
+              Movies
+            </Link>
+          </li>
+          <li>
+            <Link href={"/browse/watchlist"} className={"h-full flex items-center  text-white ml-5 hover:text-grey"}>
+              My watchlist
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+      <div className={"h-full flex items-center "}>
+        {/* Search Bar*/}
+        <div
+          ref={searchInputRef}
+          className={`overflow-hidden p-1 flex mr-8  transition-all rounded-sm  ${searchBarIsOpen ? "w-[300px]   bg-black border border-white" : "w-[40px]"}`}
+        >
+          <Image src={searchIcon} width={30} height={30} alt="search icon" className={`cursor-pointer`} onClick={() => setSearchBarIsOpen(!searchBarIsOpen)} />
+          {searchBarIsOpen && (
+            <input type="search" style={{ border: "none", outline: "none" }} placeholder="Movies, series, style..." autoFocus className={`text-white bg-black ml-2 w-full`} />
+          )}
+        </div>
+        {/* Modal profile */}
+        <div className="flex items-center relative cursor-pointer" onMouseEnter={toggleModalProfilePicture} onMouseLeave={() => toggleModalProfilePicture()}>
+          <Image src={`/assets/avatar/${profileSelected.avatar}.png`} width={36} height={36} alt="profile picture" className="rounded-sm mr-2" />
           <Image src={triangleIcon} width={10} height={10} alt="triangle icon" className={`transition ${profilePictureIsHovered ? "" : "rotate-180"}`} />
           {profilePictureIsHovered && (
-            <div className="w-[260px]  absolute top-[40px] right-0  border-[1px] border-primary rounded-xl flex flex-col p">
-              {/* <div className="w-full h-[40px]"></div> */}
-
-              <div className="p-4">
+            <div className="min-w-[240px]  absolute top-[50px] right-0  border-[1px] border-primary rounded-sm flex flex-col bg-blackTransparent ">
+              <Image src={triangleColorIcon} width={14} height={14} alt="triangle color icon" className={`absolute top-[-12px] right-[24px]`} />
+              <div className="p-4 ">
                 {profiles.map((user, idx) => {
                   if (user.username !== profileSelected.username) {
                     return (
@@ -84,7 +143,7 @@ const Navigation = () => {
                   onMouseLeave={() => setChangeProfileIsHovered(false)}
                 >
                   <Image src={penIcon} width={25} height={25} alt="pen icon" />
-                  <p className={`text-white text-sm ml-3 ${changeProfileIsHovered && "underline underline-offset-4"}`}>Change profiles</p>
+                  <p className={`text-white text-sm ml-3 ${changeProfileIsHovered && "underline underline-offset-4"}`}>Manage profiles</p>
                 </Link>
                 <Link href={"/"} className="flex items-center mt-3 w-fit" onMouseEnter={() => setAccountIsHovered(true)} onMouseLeave={() => setAccountIsHovered(false)}>
                   <Image src={accountIcon} width={35} height={35} alt="pen icon" className="ml-[-5px]" />
@@ -96,9 +155,9 @@ const Navigation = () => {
                 </Link>
               </div>
 
-              <div className="w-full h-[40px] p-5 flex items-center justify-center border-t-2 border-[white] border-opacity-40 cursor-pointer" onClick={logout}>
+              <div className="w-full h-[40px] p-5 flex items-center justify-center border-t-2 border-primary border-opacity-40 cursor-pointer" onClick={logout}>
                 <Image src={logoutIcon} width={16} height={16} alt="logout icon" />
-                <p className="text-white ml-5 ">Logout</p>
+                <p className="text-white ml-3 ">Logout</p>
               </div>
               <div className="w-[60px] h-[40px] bg-transparent absolute right-[-10px] top-[-40px] cursor-pointer"></div>
             </div>

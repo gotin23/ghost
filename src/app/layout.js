@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <ProviderRedux> {children}</ProviderRedux>
+        <ProviderRedux>{children}</ProviderRedux>
         {/* <ProviderRedux></ProviderRedux> */}
         {/* {children} */}
       </body>

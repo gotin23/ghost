@@ -9,11 +9,9 @@ const Captcha = () => {
   const randomNumber2 = Math.floor(Math.random() * 10);
   const CaptchaValue = (value) => {
     setValue(value);
-    console.log(value, "icici");
   };
   const handleAnswer = (e) => {
     const result = randomNumber1 + randomNumber2 === parseInt(value, 10);
-    console.log(result);
   };
 
   return (

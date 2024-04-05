@@ -97,7 +97,7 @@ async function deleteProfile(req, res) {
     const { id } = req.body;
 
     const user = await User.findById(userId).populate("profile");
-    console.error(user, "ici ici", id);
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
