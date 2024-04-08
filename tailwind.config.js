@@ -4,8 +4,8 @@ module.exports = {
   content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     colors: {
-      // black: "#192324",
-      black: "#080523",
+      black: "#141414",
+      // black: "#080523",
       blackTransparent: "rgb(8 5 35 / 55%)",
       // black: "#041404",
       // primary: "#C2F970",

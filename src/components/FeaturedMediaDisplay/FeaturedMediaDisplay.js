@@ -43,7 +43,7 @@ const FeaturedMediaDisplay = () => {
         src={`https://image.tmdb.org/t/p/original${featuredMediaDisplay.backdrop_path}`}
         width={1920}
         height={1080}
-        className="w-[100%] h-[100%] object-cover opacity-80"
+        className="w-[100%] h-[100%] object-cover  brightness-75"
         alt={"featured media image"}
       />
       <div className="absolute left-10 bottom-[30vh] min-h-[200px] w-[40vw] ">

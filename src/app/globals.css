@@ -22,9 +22,11 @@ html {
 }
 body {
   font-family: "poppins", "sans-serif", "Helvetica Neue", Helvetica, Arial;
-  background-color: #080523;
+  background-color: #141414;
+  /* background-color: #03020b; */
+  overflow-x: hidden;
 }
-/* .video-foreground iframe {
+.video-foreground iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -44,4 +46,4 @@ body {
 }
 .video-foreground {
   pointer-events: none;
-} */
+}
