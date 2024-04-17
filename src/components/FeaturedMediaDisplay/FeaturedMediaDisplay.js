@@ -46,7 +46,7 @@ const FeaturedMediaDisplay = () => {
         className="w-[100%] h-[100%] object-cover  brightness-75"
         alt={"featured media image"}
       />
-      <div className="absolute left-10 bottom-[30vh] min-h-[200px] w-[40vw] ">
+      <div className="absolute left-16 bottom-[30vh] min-h-[200px] w-[40vw] ">
         <h1 className="text-6xl text-white">{featuredMediaDisplay.title}</h1>
         <p className="mt-5 text-white text-xl">{featuredMediaDisplay.overview}</p>
         <div className="mt-10 flex w-full">

@@ -1,22 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPopularMoviesList } from "@/redux/Reducers/PopularMoviesReducer";
 import { tdmbApiAction } from "@/Services/TmdbApi/TmdbApi";
+import Image from "next/image";
 import MovieCard from "../MovieCard/MovieCard";
 import Title from "../Title/Title";
+import nextIcon from "../../../public/assets/icons/next-icon.svg";
 const PopularMovies = () => {
   const dispatch = useDispatch();
   const moviesList = useSelector((state) => state.popularMovies.popularMoviesList);
+  console.log(moviesList);
+  const targetRef = useRef(null);
   const [page, setPage] = useState(1);
-  const [nextPage, setNextPage] = useState(0);
+  const [position, setPosition] = useState(0);
+  //   const [fetchData, setFetchData] = useState(1);
   //   const popularClass = "ml-[-300px]";
   //   const popularClass = "ml-[-" + 100 + "px]";
   //   console.log(popularClass);
   useEffect(() => {
     const fetchPopularMovies = async () => {
       try {
-        const response = await tdmbApiAction("get", `3/movie/popular?language=en-US&page=${page}`);
-        console.log(response.results, "response popular");
+        const response = await tdmbApiAction("get", `3/movie/top_rated?language=en-US&page=${page}`);
+        // console.log(response.results, "response popular");
         dispatch(setPopularMoviesList(response.results));
 
         // dispatch(setReleaseDate(resultWithUS));
@@ -27,36 +32,67 @@ const PopularMovies = () => {
     };
     fetchPopularMovies();
   }, [page]);
-  const test = () => {
-    console.log("oki");
-    setNextPage(nextPage + 1296);
+  useEffect(() => {
+    const options = { root: null, threshold: 1 };
+    const observer = new IntersectionObserver((entries) => {
+      console.log(entries);
+      if (entries[0].isIntersecting) {
+        console.log("observer");
+        setPage(page + 1);
+      }
+    }, options);
+    setTimeout(() => {
+      observer.observe(targetRef.current);
+    }, 100);
+  }, [page]);
+
+  const nextMovies = () => {
+    setPosition(parseFloat((position + 73.76).toFixed(2)));
   };
-  console.log(nextPage);
+  const previousMovies = () => {
+    if (position > 0) {
+      setPosition(parseFloat((position - 73.76).toFixed(2)));
+    }
+  };
+
   return (
     <>
-      <div className=" cursor-pointer  w-full pl-10 mb-18 mt-[-200px] z-10">
-        <Title level={2} text={"Popular movies"} style={"text-white text-3xl mb-5"} />
+      <div className=" cursor-pointer  w-full pl-[4vw] mb-18 mt-[-180px] z-10 mb-48">
+        <Title level={2} text={"Popular movies"} style={"text-white text-3xl mb-3"} />
 
-        <div className="flex gap-2 ">
+        <div className="flex gap-[0.2vw] transition-all duration-500" style={{ marginLeft: "-" + position + "vw" }}>
           {moviesList &&
             moviesList.map((el, idx) => {
-              return <MovieCard key={idx} id={el.id} image={el.backdrop_path} average={el.vote_average} genres={el.genre_ids} title={el.title} />;
+              return (
+                <>
+                  <MovieCard key={idx} id={el.id} image={el.backdrop_path} average={el.vote_average} genres={el.genre_ids} title={el.title} overview={el.overview} />
+                  {idx === moviesList.length - 1 && <div ref={targetRef} className=" bg-primary w-10 h-10"></div>}
+                </>
+              );
             })}
+          {position > 0 ? (
+            <div className="absolute left-0 w-[4vw] h-[16vh] flex items-center justify-center  opacity-50 bg-blackTransparent hover:opacity-100" onClick={previousMovies}>
+              <Image src={nextIcon} width={40} height={40} alt="next icon" className="rotate-180 rotate" />
+            </div>
+          ) : (
+            <div className="absolute left-0 w-[4vw] h-[14vh] cursor-auto"></div>
+          )}
+          <div className="absolute right-0 w-[4vw] h-[16vh] flex items-center justify-center  opacity-50 bg-blackTransparent hover:opacity-100" onClick={nextMovies}>
+            <Image src={nextIcon} width={40} height={40} alt="next icon" />
+          </div>
         </div>
       </div>
-      <div className=" mt-16 cursor-pointer  w-full pl-10 mb-48 relative">
+      {/* <div className=" mt-16 cursor-pointer  w-full pl-10 mb-48 relative">
         <Title level={2} text={"For you"} style={"text-white text-3xl mb-5"} onClick={test} />
-        <div className="absolute bg-black z-50 h-[180px] w-[50px] left-[-10px]"></div>
-        <div className={`flex gap-2 transition-all`} style={{ marginLeft: "-" + nextPage + "px" }}>
+       
+        <div className={`flex gap-1 transition-all`} style={{ marginLeft: "-" + Position + "px" }}>
           {moviesList &&
             moviesList.map((el, idx) => {
               return <MovieCard key={idx} id={el.id} image={el.backdrop_path} average={el.vote_average} genres={el.genre_ids} title={el.title} />;
             })}
         </div>
-        <button className="bg-primary" onClick={test}>
-          click
-        </button>
-      </div>
+        
+      </div> */}
     </>
   );
 };

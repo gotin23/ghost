@@ -45,7 +45,6 @@ const token =
 // };
 // fonction pour gerer les appel a l'api avec l'action donnée
 export const tdmbApiAction = async (action, url) => {
-  console.log(action, url);
   if (!url || !action) {
     console.error("Action non prise en charge.");
     return;

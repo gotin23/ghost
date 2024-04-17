@@ -98,6 +98,7 @@ const Browse = () => {
           {/* <div ref={playerRef}></div> */}
           <FeaturedMediaDisplay id={idFeaturedMediaDisplay} />
           <PopularMovies />
+          {/* <PopularMovies /> */}
         </main>
       )}
     </>
