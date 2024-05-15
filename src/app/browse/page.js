@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { tdmbApiAction } from "@/Services/TmdbApi/TmdbApi";
+import { setPopularMoviesList } from "@/redux/Reducers/PopularMoviesReducer";
+import { setTopRatedMoviesList } from "@/redux/Reducers/TopRatedMoviesReducer";
 import FeaturedMediaDisplay from "../../components/FeaturedMediaDisplay/FeaturedMediaDisplay";
 import { setFeaturedMediaId, setReleaseDate } from "@/redux/Reducers/FeaturedMediaReducer";
-
-// import Navigation from "@/components/Navigation/Navigation";
-import PopularMovies from "@/components/PopularMovies/PopularMovies";
+import MediaSlider from "@/components/MediaSlider/MediaSlider";
 
 const Browse = () => {
   const dispatch = useDispatch();
@@ -97,7 +97,9 @@ const Browse = () => {
           ></iframe> */}
           {/* <div ref={playerRef}></div> */}
           <FeaturedMediaDisplay id={idFeaturedMediaDisplay} />
-          <PopularMovies />
+          {/* <PopularMovies /> */}
+          <MediaSlider title={"Popular Movies"} url={"3/movie/popular?language=en-US&page="} dispatchMedias={setPopularMoviesList} data={"popularMovies"} />
+          <MediaSlider title={"Top rated"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />
           {/* <PopularMovies /> */}
         </main>
       )}

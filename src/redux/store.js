@@ -4,6 +4,7 @@ import ProfilesReducer from "./Reducers/ProfilesReducer";
 import ProfileSelectedReducer from "./Reducers/ProfileSelectedReducer";
 import FeaturedMediaReducer from "./Reducers/FeaturedMediaReducer";
 import PopularMoviesReducer from "./Reducers/PopularMoviesReducer";
+import TopRatedMoviesReducer from "./Reducers/TopRatedMoviesReducer";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     profileSelected: ProfileSelectedReducer,
     featuredMedia: FeaturedMediaReducer,
     popularMovies: PopularMoviesReducer,
+    topRatedMovies: TopRatedMoviesReducer,
   },
 });
 
