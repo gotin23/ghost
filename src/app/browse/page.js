@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { tdmbApiAction } from "@/Services/TmdbApi/TmdbApi";
 import { setPopularMoviesList } from "@/redux/Reducers/PopularMoviesReducer";
 import { setTopRatedMoviesList } from "@/redux/Reducers/TopRatedMoviesReducer";
+import { setNowPlayedMoviesList } from "@/redux/Reducers/NowPlayedMoviesReducer";
+import { setUpcomingMoviesList } from "@/redux/Reducers/UpcomingMoviesReducer";
 import FeaturedMediaDisplay from "../../components/FeaturedMediaDisplay/FeaturedMediaDisplay";
 import { setFeaturedMediaId, setReleaseDate } from "@/redux/Reducers/FeaturedMediaReducer";
 import MediaSlider from "@/components/MediaSlider/MediaSlider";
@@ -84,23 +86,15 @@ const Browse = () => {
     <>
       {token && (
         <main className="flex flex-col min-h-screen justify-center items-center w-full relative">
-          {/* <Navigation /> */}
-
-          {/* <iframe
-            width="1000"
-            height="1000"
-            src="https://www.youtube.com/embed/W5Gwgw-DpDw?autoplay=1"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-            allowfullscreen
-          ></iframe> */}
-          {/* <div ref={playerRef}></div> */}
           <FeaturedMediaDisplay id={idFeaturedMediaDisplay} />
-          {/* <PopularMovies /> */}
-          <MediaSlider title={"Popular Movies"} url={"3/movie/popular?language=en-US&page="} dispatchMedias={setPopularMoviesList} data={"popularMovies"} />
-          <MediaSlider title={"Top rated"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />
-          {/* <PopularMovies /> */}
+          <div className=" w-full pl-[4vw] mb-18 mt-[-180px] z-10 mb-48">
+            <MediaSlider title={"Popular Movies"} url={"3/movie/popular?language=en-US&page="} dispatchMedias={setPopularMoviesList} data={"popularMovies"} />
+            <MediaSlider title={"Top rated"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />
+            <MediaSlider title={"Upcoming"} url={"3/movie/upcoming?language=en-US&page="} dispatchMedias={setUpcomingMoviesList} data={"upcomingMovies"} />
+            <MediaSlider title={"Now played"} url={"3/movie/now_playing?language=en-US&page="} dispatchMedias={setNowPlayedMoviesList} data={"nowPlayedMovies"} />
+            {/* <MediaSlider title={"For you"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />
+            <MediaSlider title={"Selected"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} /> */}
+          </div>
         </main>
       )}
     </>

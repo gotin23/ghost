@@ -143,7 +143,7 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
   };
   return (
     <>
-      <div className="relative  ">
+      <div className="relative cursor-pointer">
         {cardIsHovered && <div className="w-[18.24vw]"></div>}
         <div
           className={` bg-black transition-all w-[18.24vw] ${

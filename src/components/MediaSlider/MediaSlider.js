@@ -58,7 +58,7 @@ const MediaSlider = ({ title, url, dispatchMedias, data }) => {
 
   return (
     <>
-      <div className=" cursor-pointer  w-full pl-[4vw] mb-18 mt-[-180px] z-10 mb-48">
+      <div className=" cursor-pointer mb-16">
         <Title level={2} text={title} style={"text-white text-3xl mb-3"} />
 
         <div className="flex gap-[0.2vw] transition-all duration-500" style={{ marginLeft: "-" + position + "vw" }}>
