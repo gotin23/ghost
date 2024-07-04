@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { tdmbApiAction } from "@/Services/TmdbApi/TmdbApi";
 import playIcon from "../../../public/assets/icons/play-icon.svg";
 import plusIcon from "../../../public/assets/icons/plus-icon.svg";
-const MoreInfo = ({ id, videoId, title, genres, average, overview, style, closeModal }) => {
+const MoreInfo = ({ id, videoId, title, genres, average, overview, style, closeModal, toggleModal }) => {
   const [release, setRelease] = useState();
   useEffect(() => {
     const fetchRelease = async () => {
@@ -24,12 +24,18 @@ const MoreInfo = ({ id, videoId, title, genres, average, overview, style, closeM
     };
     fetchRelease();
   }, []);
+  const handleCloseModal = () => {
+    if (toggleModal) {
+      toggleModal(false);
+    }
+    closeModal("0");
+  };
   console.log(release, "release");
   return (
-    <div className="modal-overlay z-[101]" onClick={() => closeModal("0")}>
+    <div className="modal-overlay z-[101]" onClick={handleCloseModal}>
       {/* <div className=" absolute inset-0 z-[101] flex items-center justify-center  bg-blackTransparent" onClick={() => closeModal("0")}> */}
 
-      <div className={`w-[50vw] transition-all ${style} bg-black  shadow-md shadow-[#03020b] transition-all rounded-xl overflow-hidden`}>
+      <div className={`w-[50vw] transition-all ${style} bg-blackLight  shadow-md shadow-[#03020b] transition-all rounded-xl overflow-hidden`}>
         <div className="w-full h-[450px]">
           <iframe
             className="w-full h-full"
@@ -39,9 +45,9 @@ const MoreInfo = ({ id, videoId, title, genres, average, overview, style, closeM
             allowFullScreen
           ></iframe>
         </div>
-        <div className="p-10">
+        <div className="px-8 pb-8">
           <div className="flex justify-between items-center mt-5">
-            <div className="flex  items-center ">
+            <div className="flex  items-center mt-4">
               <button className="bg-white mr-3 min-w-[180px] py-2  flex justify-center items-center rounded-md hover:bg-grey">
                 <Image src={playIcon} width={30} height={30} className="mr-2" alt={"featured media image"} />
                 <p className="text-lg">Play</p>
@@ -53,7 +59,7 @@ const MoreInfo = ({ id, videoId, title, genres, average, overview, style, closeM
             {/* <p className={`text-lg  ${average >= 5 ? "text-primary " : "text-[red]"} `}> Recommended at {average?.length > 1 ? average + "%" : average + "0%"}</p> */}
           </div>
 
-          <Title lvl={3} text={title} style={"text-white text-2xl mt-10"} />
+          <Title lvl={3} text={title} style={"text-white text-4xl mt-8"} />
           <p className={`text-md  ${average >= 5 ? "text-primary " : "text-[red]"} `}> Recommended at {average?.length > 1 ? average + "%" : average + "0%"}</p>
           <p className="text-white text-base mt-5">{overview}</p>
           <div className="flex justify-between items-center mt-10">

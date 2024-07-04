@@ -7,17 +7,12 @@ import MovieCard from "../MovieCard/MovieCard";
 import Title from "../Title/Title";
 import nextIcon from "../../../public/assets/icons/next-icon.svg";
 const MediaSlider = ({ title, url, dispatchMedias, data }) => {
-  console.log(data);
   const dispatch = useDispatch();
   const moviesList = useSelector((state) => state[data][data + "List"]);
-  console.log(moviesList);
   const targetRef = useRef(null);
   const [page, setPage] = useState(1);
   const [position, setPosition] = useState(0);
-  //   const [fetchData, setFetchData] = useState(1);
-  //   const popularClass = "ml-[-300px]";
-  //   const popularClass = "ml-[-" + 100 + "px]";
-  //   console.log(popularClass);
+
   useEffect(() => {
     const fetchPopularMovies = async () => {
       try {
@@ -36,7 +31,6 @@ const MediaSlider = ({ title, url, dispatchMedias, data }) => {
   useEffect(() => {
     const options = { root: null, threshold: 1 };
     const observer = new IntersectionObserver((entries) => {
-      console.log(entries);
       if (entries[0].isIntersecting) {
         console.log("observer");
         setPage(page + 1);
@@ -48,20 +42,22 @@ const MediaSlider = ({ title, url, dispatchMedias, data }) => {
   }, [page]);
 
   const nextMovies = () => {
-    setPosition(parseFloat((position + 73.76).toFixed(2)));
+    setPosition(parseFloat((position + 92).toFixed(2)));
+    // setPosition(parseFloat((position + 73.76).toFixed(2)));
   };
   const previousMovies = () => {
     if (position > 0) {
-      setPosition(parseFloat((position - 73.76).toFixed(2)));
+      setPosition(parseFloat((position - 92).toFixed(2)));
+      // setPosition(parseFloat((position - 73.76).toFixed(2)));
     }
   };
 
   return (
     <>
-      <div className=" cursor-pointer mb-16">
+      <div className="mb-16">
         <Title level={2} text={title} style={"text-white text-3xl mb-3"} />
 
-        <div className="flex gap-[0.2vw] transition-all duration-500" style={{ marginLeft: "-" + position + "vw" }}>
+        <div className="flex gap-[0.2vw] transition-all duration-500 ease-in" style={{ marginLeft: "-" + position + "vw" }}>
           {moviesList &&
             moviesList.map((el, idx) => {
               return (

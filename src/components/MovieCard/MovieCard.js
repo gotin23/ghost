@@ -141,16 +141,29 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
       setStyleMoreInfo(`scale-${value}`);
     }, 20);
   };
+  const [hoverTimeout, setHoverTimeout] = useState(null);
+
+  const handleMouseEnter = () => {
+    const timeout = setTimeout(() => {
+      setCardIsHovered(true);
+    }, 200); // Délai de 2 secondes
+    setHoverTimeout(timeout);
+  };
+
+  const handleMouseLeave = () => {
+    clearTimeout(hoverTimeout);
+    setCardIsHovered(false);
+  };
   return (
     <>
-      <div className="relative cursor-pointer">
-        {cardIsHovered && <div className="w-[18.24vw]"></div>}
+      <div className="relative">
+        {cardIsHovered && <div className="w-[18.2vw]"></div>}
         <div
-          className={` bg-black transition-all w-[18.24vw] ${
-            cardIsHovered && "scale-x-[1.3] scale-y-[1.3] z-[100] h-[320px] absolute  bottom-[-5rem] left-3  rounded-lg overflow-hidden shadow-lg shadow-[#03020b] "
+          className={`bg-blackLight transition-all w-[18.2vw] cursor-pointer ${
+            cardIsHovered && "scale-x-[1.4] scale-y-[1.4] z-[100] h-[320px] absolute  bottom-[-5rem] left-3  rounded-lg overflow-hidden shadow-lg shadow-[#03020b] "
           }`}
-          onMouseEnter={() => setCardIsHovered(true)}
-          onMouseLeave={() => setCardIsHovered(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <div className="h-[16vh] relative">
             {cardIsHovered ? (
@@ -163,13 +176,13 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
               ></iframe>
             ) : (
               <>
-                {/* <Title lvl={3} text={title} style={"text-white z-50 absolute bottom-3 left-3 text-lg text-nowrap text-ellipsis overflow-hidden"} /> */}
+                <Title lvl={3} text={title} style={"text-white  bg-blackTransparent px-1 z-50 absolute bottom-3 left-3 text-md text-nowrap text-ellipsis overflow-hidden"} />
                 <Image src={`https://image.tmdb.org/t/p/original/${image}`} width={1920} height={1080} alt={"movie image"} className="w-[100%] h-[100%] object-cover" />
               </>
             )}
           </div>
           {cardIsHovered && (
-            <div className="h-[200px] w-full p-3">
+            <div className="h-[200px] w-full p-3 pb-10">
               <div className="flex w-full justify-between">
                 <div className="flex mt-2">
                   <div className="rounded-[50%] cursor-pointer w-[32px]  h-[32px] bg-white flex justify-center items-center mr-2 hover:bg-grey">
@@ -186,9 +199,9 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
                   <Image src={chevronIcon} width={14} height={14} className="" alt="play icon" />
                 </div>
               </div>
-              <Title lvl={3} text={title} style={"text-white mt-3 text-lg text-nowrap text-ellipsis overflow-hidden"} />
-              <p className={`text-xs mt-1 ${average >= 5 ? "text-primary " : "text-[red]"} `}> Recommended at {voteAverage?.length > 1 ? voteAverage + "%" : voteAverage + "0%"}</p>
-              <p className="text-white text-[10px] mt-2">{displayGenre()}</p>
+              <Title lvl={3} text={title} style={"text-white mt-4 text-lg text-nowrap text-ellipsis overflow-hidden"} />
+              <p className={`text-xs mt-2 ${average >= 5 ? "text-primary " : "text-[red]"} `}> Recommended at {voteAverage?.length > 1 ? voteAverage + "%" : voteAverage + "0%"}</p>
+              <p className="text-white text-[10px] mt-1">{displayGenre()}</p>
             </div>
           )}
         </div>

@@ -107,9 +107,15 @@ const Navigation = ({ style }) => {
           ref={searchInputRef}
           className={`overflow-hidden p-1 flex mr-8  transition-all rounded-sm  ${searchBarIsOpen ? "w-[300px]   bg-black border border-white" : "w-[40px]"}`}
         >
-          <Image src={searchIcon} width={30} height={30} alt="search icon" className={`cursor-pointer`} onClick={() => setSearchBarIsOpen(!searchBarIsOpen)} />
+          <Image src={searchIcon} width={28} height={28} alt="search icon" className={`cursor-pointer`} onClick={() => setSearchBarIsOpen(!searchBarIsOpen)} />
           {searchBarIsOpen && (
-            <input type="search" style={{ border: "none", outline: "none" }} placeholder="Movies, series, style..." autoFocus className={`text-white bg-black ml-2 w-full`} />
+            <input
+              type="search"
+              style={{ border: "none", outline: "none" }}
+              placeholder="Movies, series, style..."
+              autoFocus
+              className={`text-white text-sm bg-black ml-2 w-full`}
+            />
           )}
         </div>
         {/* Modal profile */}
