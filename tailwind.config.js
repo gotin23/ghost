@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     colors: {
       black: "#141414",
+      blackLight: "#1c1b1b",
       // black: "#080523",
       blackTransparent: "rgb(8 5 35 / 55%)",
       // black: "#041404",
