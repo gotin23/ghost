@@ -6,12 +6,14 @@ import playIcon from "../../../public/assets/icons/play-icon.svg";
 import plusIcon from "../../../public/assets/icons/plus-icon.svg";
 import chevronIcon from "../../../public/assets/icons/chevron-icon.svg";
 import MoreInfo from "../MoreInfo/MoreInfo";
+import loader from "../../../public/assets/icons/spinner.svg";
 
 const MovieCard = ({ title, image, average, genres, id, overview }) => {
   const [cardIsHovered, setCardIsHovered] = useState(false);
   const [toggleMoreInfo, setToggleMoreInfo] = useState(false);
   const [videoId, setVideoId] = useState("");
   const [styleMoreInfo, setStyleMoreInfo] = useState("scale-0");
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const genresArray = [
     {
@@ -154,6 +156,13 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
     clearTimeout(hoverTimeout);
     setCardIsHovered(false);
   };
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageLoaded(false);
+  };
   return (
     <>
       <div className="relative">
@@ -170,14 +179,27 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
               <iframe
                 className="w-full h-full"
                 src={`https://www.youtube.com/embed/${videoId}?rel=0&autoplay=0&showinfo=0&controls=0&iv_load_policy=3&autohide=1`}
-                frameborder="0"
+                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen; autohide"
                 allowFullScreen
               ></iframe>
             ) : (
               <>
-                <Title lvl={3} text={title} style={"text-white  bg-blackTransparent px-1 z-50 absolute bottom-3 left-3 text-md text-nowrap text-ellipsis overflow-hidden"} />
-                <Image src={`https://image.tmdb.org/t/p/original/${image}`} width={1920} height={1080} alt={"movie image"} className="w-[100%] h-[100%] object-cover" />
+                <Title lvl={3} text={title} style={"text-white bg-blackTransparent px-1 z-50 absolute bottom-3 left-3 text-md text-nowrap text-ellipsis overflow-hidden"} />
+                {!imageLoaded && (
+                  <div className="w-[100%] h-[100%] flex justify-center align-middle">
+                    <Image src={loader} height={64} width={64} />
+                  </div>
+                )}
+                <Image
+                  src={`https://image.tmdb.org/t/p/original/${image}`}
+                  onLoadingComplete={handleImageLoad}
+                  onError={handleImageError}
+                  width={1920}
+                  height={1080}
+                  alt={"movie image"}
+                  className="w-[100%] h-[100%] object-cover"
+                />
               </>
             )}
           </div>

@@ -10,6 +10,8 @@ import { setUpcomingMoviesList } from "@/redux/Reducers/UpcomingMoviesReducer";
 import FeaturedMediaDisplay from "../../components/FeaturedMediaDisplay/FeaturedMediaDisplay";
 import { setFeaturedMediaId, setReleaseDate } from "@/redux/Reducers/FeaturedMediaReducer";
 import MediaSlider from "@/components/MediaSlider/MediaSlider";
+import loaderSvg from "../../../public/assets/icons/spinner.svg";
+import Image from "next/image";
 
 const Browse = () => {
   const dispatch = useDispatch();
@@ -95,6 +97,7 @@ const Browse = () => {
             {/* <MediaSlider title={"For you"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />
             <MediaSlider title={"Selected"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} /> */}
           </div>
+       
         </main>
       )}
     </>
