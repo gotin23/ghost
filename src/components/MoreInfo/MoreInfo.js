@@ -45,7 +45,7 @@ const MoreInfo = ({ id, videoId, title, genres, average, overview, style, closeM
             allowFullScreen
           ></iframe>
         </div>
-        <div className="px-8 pb-8">
+        <div className="px-8 pb-8 ">
           <div className="flex justify-between items-center mt-5">
             <div className="flex  items-center mt-4">
               <button className="bg-white mr-3 min-w-[180px] py-2  flex justify-center items-center rounded-md hover:bg-grey">

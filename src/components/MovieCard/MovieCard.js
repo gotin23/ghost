@@ -184,7 +184,7 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
                 allowFullScreen
               ></iframe>
             ) : (
-              <>
+              <div className="h-[16vh] overflow-hidden">
                 <Title lvl={3} text={title} style={"text-white bg-blackTransparent px-1 z-50 absolute bottom-3 left-3 text-md text-nowrap text-ellipsis overflow-hidden"} />
                 {!imageLoaded && (
                   <div className="w-[100%] h-[100%] flex justify-center align-middle">
@@ -200,7 +200,7 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
                   alt={"movie image"}
                   className="w-[100%] h-[100%] object-cover"
                 />
-              </>
+              </div>
             )}
           </div>
           {cardIsHovered && (

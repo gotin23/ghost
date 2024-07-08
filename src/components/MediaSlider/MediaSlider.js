@@ -37,7 +37,7 @@ const MediaSlider = ({ title, url, dispatchMedias, data }) => {
       }
     }, options);
     setTimeout(() => {
-      observer.observe(targetRef.current);
+      observer?.observe(targetRef.current);
     }, 100);
   }, [page]);
 
@@ -68,7 +68,7 @@ const MediaSlider = ({ title, url, dispatchMedias, data }) => {
               );
             })}
           {position > 0 ? (
-            <div className="absolute left-0 w-[4vw] h-[16vh] flex items-center justify-center  opacity-50 bg-blackTransparent hover:opacity-100" onClick={previousMovies}>
+            <div className="absolute left-0 w-[4vw] h-[16vh] flex items-center justify-center  opacity-50 bg-black hover:opacity-100" onClick={previousMovies}>
               <Image src={nextIcon} width={40} height={40} alt="next icon" className="rotate-180 rotate" />
             </div>
           ) : (
