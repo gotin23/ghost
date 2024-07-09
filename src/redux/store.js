@@ -7,6 +7,7 @@ import PopularMoviesReducer from "./Reducers/PopularMoviesReducer";
 import TopRatedMoviesReducer from "./Reducers/TopRatedMoviesReducer";
 import NowPlayedMoviesReducer from "./Reducers/NowPlayedMoviesReducer";
 import UpcomingMoviesReducer from "./Reducers/UpcomingMoviesReducer";
+import SearchResultReducer from "./Reducers/SearchResultReducer";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     topRatedMovies: TopRatedMoviesReducer,
     nowPlayedMovies: NowPlayedMoviesReducer,
     upcomingMovies: UpcomingMoviesReducer,
+    searchResult: SearchResultReducer,
   },
 });
 

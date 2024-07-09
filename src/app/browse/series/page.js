@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import FeaturedMediaDisplay from "@/components/FeaturedMediaDisplay/FeaturedMediaDisplay";
+import Player from "@/components/Player/Player";
 
 import Navigation from "@/components/Navigation/Navigation";
 const Series = () => {
@@ -20,16 +21,7 @@ const Series = () => {
       {token && (
         <main className="flex min-h-[200vh] w-full relative flex-col">
           <FeaturedMediaDisplay />
-          <iframe
-            width="500px"
-            className="video"
-            title="Youtube player"
-            sandbox="allow-same-origin  allow-scripts "
-            frameborder="0"
-            allow="autoplay; fullscreen"
-            allowfullscreen
-            src={`https://youtube.com/embed/elSs0KU2eJE?autoplay=0`}
-          ></iframe>
+          <Player />
         </main>
       )}
     </>
