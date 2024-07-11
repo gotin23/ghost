@@ -169,7 +169,7 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
         {cardIsHovered && <div className="w-[18.2vw]"></div>}
         <div
           className={`bg-blackLight transition-all w-[18.2vw] cursor-pointer ${
-            cardIsHovered && "scale-x-[1.4] scale-y-[1.4] z-[100] h-[320px] absolute  bottom-[-5rem] left-3  rounded-lg overflow-hidden shadow-lg shadow-[#03020b] "
+            cardIsHovered && "scale-x-[1.4] scale-y-[1.4] z-[100] h-[320px] absolute  bottom-[-10rem] left-3  rounded-lg overflow-hidden shadow-lg shadow-[#03020b] "
           }`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
