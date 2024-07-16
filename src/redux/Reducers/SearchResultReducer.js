@@ -9,10 +9,13 @@ const SearchResultSlice = createSlice({
   },
   reducers: {
     setResults: (state, action) => {
-      const resultsFiltered = action.payload.response.results.filter((el) => el.media_type !== "vie");
+      const resultsFiltered = action.payload.response.results.filter((el) => el.media_type !== "uii");
       console.log(resultsFiltered);
       if (resultsFiltered.length > 0) {
         resultsFiltered.forEach((element) => {
+          if (element.media_type === "person") {
+            console.log(element);
+          }
           state.results.push(element);
         });
       }

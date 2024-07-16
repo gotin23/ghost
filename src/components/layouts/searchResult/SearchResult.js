@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { tdmbApiAction } from "@/Services/TmdbApi/TmdbApi";
 import { setResults, resetResults } from "@/redux/Reducers/SearchResultReducer";
 import MovieCard from "@/components/MovieCard/MovieCard";
+import PersonCard from "@/components/PersonCard/PersonCard";
 // import { fetchAndSetResults } from "@/redux/Reducers/SearchResultReducer";
 
 const SearchResult = ({ value }) => {
@@ -111,11 +112,11 @@ const SearchResult = ({ value }) => {
         results.results.map((el, idx) => {
           return (
             <>
-              {el.media_type === "movie" ? (
+              {el.media_type === "movie" && (
                 <MovieCard key={idx} id={el.id} image={el.backdrop_path} average={el.vote_average} genres={el.genre_ids} title={el.title} overview={el.overview} />
-              ) : (
-                <div className="bg-primary w-[18vw] h-[16vh]"></div>
               )}
+              {el.media_type === "person" && <PersonCard data={el} />}
+              {el.media_type === "tv" && <div className="h-[16vh] w-[18vw] bg-grey"></div>}
               {/* 
               {idx === results.results.length - 1 && <div ref={targetRef} className=" bg-primary w-10 h-10"></div>} */}
             </>
