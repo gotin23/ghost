@@ -169,7 +169,7 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
         {cardIsHovered && <div className="w-[18.2vw]"></div>}
         <div
           className={`bg-blackLight transition-all w-[18.2vw] cursor-pointer ${
-            cardIsHovered && "scale-x-[1.4] scale-y-[1.4] z-[100] h-[320px] absolute  bottom-[-10rem] left-3  rounded-lg overflow-hidden shadow-lg shadow-[#03020b] "
+            cardIsHovered && "scale-x-[1.4] scale-y-[1.4] z-[100] h-[320px] absolute  bottom-[-10rem] left-0  rounded-lg overflow-hidden shadow-lg shadow-[#03020b] "
           }`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -188,12 +188,12 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
                 <Title lvl={3} text={title} style={"text-white bg-blackTransparent px-1 z-50 absolute bottom-3 left-3 text-md text-nowrap text-ellipsis overflow-hidden"} />
                 {!imageLoaded && (
                   <div className="w-[100%] h-[100%] flex justify-center align-middle">
-                    <Image src={loader} height={64} width={64} />
+                    <Image src={loader} height={64} width={64} alt="loader" />
                   </div>
                 )}
                 <Image
                   src={`https://image.tmdb.org/t/p/original/${image}`}
-                  onLoadingComplete={handleImageLoad}
+                  onLoad={handleImageLoad}
                   onError={handleImageError}
                   width={1920}
                   height={1080}
@@ -214,11 +214,11 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
                     className="rounded-[50%] cursor-pointer w-[32px]  h-[32px] border-[1px] border-grey flex justify-center items-center hover:border-white"
                     onClick={() => toggleModalMoreInfo("1")}
                   >
-                    <Image src={plusIcon} width={12} height={12} alt="play icon" />
+                    <Image src={plusIcon} width={12} height={12} alt="plus icon" />
                   </div>
                 </div>
                 <div className="rounded-[50%] cursor-pointer w-[32px]  h-[32px] mt-2 border-[1px] border-grey flex justify-center items-center hover:border-white">
-                  <Image src={chevronIcon} width={14} height={14} className="" alt="play icon" />
+                  <Image src={chevronIcon} width={14} height={14} className="" alt="chevron icon" />
                 </div>
               </div>
               <Title lvl={3} text={title} style={"text-white mt-4 text-lg text-nowrap text-ellipsis overflow-hidden"} />

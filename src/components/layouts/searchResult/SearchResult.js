@@ -1,55 +1,142 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { tdmbApiAction } from "@/Services/TmdbApi/TmdbApi";
-import { setResults } from "@/redux/Reducers/SearchResultReducer";
+import { setResults, resetResults } from "@/redux/Reducers/SearchResultReducer";
 import MovieCard from "@/components/MovieCard/MovieCard";
 // import { fetchAndSetResults } from "@/redux/Reducers/SearchResultReducer";
 
 const SearchResult = ({ value }) => {
   const dispatch = useDispatch();
-  const [pages, setPages] = useState({ currentPage: 1, totalPages: "" });
+  const [pages, setPages] = useState({ currentPage: 1, totalPages: 1 });
+  const targetRef = useRef(null);
+  const results = useSelector((state) => state.searchResult);
+  //
+  useEffect(() => {
+    const resetCurrentPageAndFetch = () => {
+      // Réinitialiser la currentPage
+      setPages(() => ({
+        totalPages: 1,
+        currentPage: 1,
+      }));
+
+      dispatch(resetResults());
+    };
+
+    if (value) {
+      resetCurrentPageAndFetch();
+    }
+  }, [value]);
+
   useEffect(() => {
     const fetchSearchResult = async () => {
       try {
-        const response = await tdmbApiAction("get", `3/search/multi?query=${value}&include_adult=false&language=en-US&page=${pages.currentPage}`);
-        // const response = await tdmbApiAction("get", `3/search/keyword?query=${value}&page=${pages.currentPage}&limit`);
+        if (pages.currentPage <= pages.totalPages) {
+          console.log("yeah", pages.currentPag <= pages.totalPages);
+          const response = await tdmbApiAction("get", `3/search/multi?query=${value}&include_adult=false&language=en-US&page=${pages.currentPage}`);
+          dispatch(setResults({ response }));
+          setPages((prevPages) => ({
+            ...prevPages,
+            totalPages: response.total_pages,
+          }));
 
-        setPages((prevPages) => ({
-          ...prevPages,
-          totalPages: response.total_pages,
-        }));
-        // Dispatch l'action setSignIn avec le token reçu de l'API
-        console.log(response);
-        dispatch(setResults({ response }));
-        // dispatch(fetchAndSetResults(response.results));
-        // redirection vers son profile
-        // navigate("/user");
-
-        // initPlayer();
+          console.log(response, pages.totalPages, "regarde", response.total_pages, value);
+        }
+        // dataSet();
       } catch (error) {
-        // Gérer les erreurs de la requête API
         console.log(error);
       }
     };
+
+    // if (value || pages.currentPage) {
     fetchSearchResult();
-  }, [value]);
-  const results = useSelector((state) => state.searchResult);
-  console.log(results, "ici", value);
+    // }
+  }, [pages.currentPage]);
+
+  //   useEffect(() => {
+  //     const options = { root: null, threshold: 1 };
+  //     const observer = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         setPages((prevPages) => ({
+  //           ...prevPages,
+  //           currentPage: pages.currentPage + 1,
+  //         }));
+  //       }
+  //     }, options);
+  //     // setTimeout(() => {
+  //     observer?.observe(targetRef.current);
+  //     // }, 100);
+  //   }, [pages]);
+  useEffect(() => {
+    const options = { root: null, threshold: 1 };
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setPages((prevPages) => ({
+          ...prevPages,
+          currentPage: prevPages.currentPage + 1,
+        }));
+      }
+    }, options);
+
+    const target = targetRef.current;
+    if (target) {
+      observer.observe(target);
+    }
+
+    return () => {
+      if (target) {
+        observer.unobserve(target);
+      }
+    };
+  }, [targetRef, setPages]);
+  //   const dataSet = () => {
+  //     const options = { root: null, threshold: 1 };
+  //     const observer = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         console.log("observer search", pages.currentPage, pages.totalPages);
+
+  //         setPages((prevPages) => ({
+  //           ...prevPages,
+  //           currentPage: pages.currentPage + 1,
+  //         }));
+  //       }
+  //     }, options);
+  //     // setTimeout(() => {
+  //     observer?.observe(targetRef.current);
+  //     // }, 100);
+  //   };
+
   return (
     <div className="pt-40 pb-20 items-center justify-center flex  flex-wrap px-20 gap-5 overflow-x-auto  max-h-[100vh] max-w-screen">
       {results &&
         results.results.map((el, idx) => {
           return (
             <>
-              {el.media_type !== "person" && (
+              {el.media_type === "movie" ? (
                 <MovieCard key={idx} id={el.id} image={el.backdrop_path} average={el.vote_average} genres={el.genre_ids} title={el.title} overview={el.overview} />
+              ) : (
+                <div className="bg-primary w-[18vw] h-[16vh]"></div>
               )}
-              {el.media_type !== "person" && (
-                <MovieCard key={idx} id={el.id} image={el.backdrop_path} average={el.vote_average} genres={el.genre_ids} title={el.title} overview={el.overview} />
-              )}
+              {/* 
+              {idx === results.results.length - 1 && <div ref={targetRef} className=" bg-primary w-10 h-10"></div>} */}
             </>
           );
         })}
+      {/* {pages.currentPage < pages.totalPages && <div ref={targetRef} className=" bg-primary w-10 h-10"></div>} */}
+      {
+        <div
+          ref={targetRef}
+          onClick={() =>
+            setPages((prevPages) => ({
+              ...prevPages,
+              currentPage: pages.currentPage + 1,
+            }))
+          }
+          className=" bg-primary w-full h-[3vh] mb-5"
+        >
+          {/* <p className="text text-[100px]">{pages.currentPage}</p>
+          <p className="text text-[100px]">{pages.totalPages}</p> */}
+        </div>
+      }
     </div>
   );
 };

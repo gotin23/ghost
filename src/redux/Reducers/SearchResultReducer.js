@@ -9,13 +9,20 @@ const SearchResultSlice = createSlice({
   },
   reducers: {
     setResults: (state, action) => {
-      const resultsFiltered = action.payload.response.results.filter((el) => el.media_type !== "person");
-      console.log("results", resultsFiltered);
-      state.results = action.payload.response.results;
+      const resultsFiltered = action.payload.response.results.filter((el) => el.media_type !== "vie");
+      console.log(resultsFiltered);
+      if (resultsFiltered.length > 0) {
+        resultsFiltered.forEach((element) => {
+          state.results.push(element);
+        });
+      }
+    },
+    resetResults: (state) => {
+      state.results = [];
     },
   },
 });
-export const { setResults } = SearchResultSlice.actions;
+export const { setResults, resetResults } = SearchResultSlice.actions;
 export default SearchResultSlice.reducer;
 // import { tdmbApiAction } from "@/Services/TmdbApi/TmdbApi";
 // import { createSlice } from "@reduxjs/toolkit";

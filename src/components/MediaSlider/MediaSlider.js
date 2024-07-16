@@ -17,7 +17,7 @@ const MediaSlider = ({ title, url, dispatchMedias, data }) => {
     const fetchPopularMovies = async () => {
       try {
         const response = await tdmbApiAction("get", `${url + page}`);
-        // console.log(response.results, "response popular");
+        console.log(response.results, "response popular");
         dispatch(dispatchMedias(response.results));
 
         // dispatch(setReleaseDate(resultWithUS));
