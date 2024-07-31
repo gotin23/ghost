@@ -28,6 +28,7 @@ const MediaSlider = ({ title, url, dispatchMedias, data }) => {
     };
     fetchPopularMovies();
   }, [page]);
+
   useEffect(() => {
     const options = { root: null, threshold: 1 };
     const observer = new IntersectionObserver((entries) => {
@@ -57,7 +58,7 @@ const MediaSlider = ({ title, url, dispatchMedias, data }) => {
       <div className="mb-16">
         <Title level={2} text={title} style={"text-white text-3xl mb-3"} />
 
-        <div className="flex gap-[0.2vw] transition-all duration-500 ease-in" style={{ marginLeft: "-" + position + "vw" }}>
+        <div className="flex gap-[0.2vw] transition-all duration-500 ease-linear" style={{ marginLeft: "-" + position + "vw" }}>
           {moviesList &&
             moviesList.map((el, idx) => {
               return (
@@ -68,14 +69,14 @@ const MediaSlider = ({ title, url, dispatchMedias, data }) => {
               );
             })}
           {position > 0 ? (
-            <div className="absolute left-0 w-[4vw] h-[16vh] flex items-center justify-center  opacity-50 bg-black hover:opacity-100" onClick={previousMovies}>
-              <Image src={nextIcon} width={40} height={40} alt="next icon" className="rotate-180 rotate" />
+            <div className="cursor-pointer absolute left-0 w-[4vw] h-[16vh] flex items-center justify-center  opacity-60 bg-black hover:opacity-100" onClick={previousMovies}>
+              <Image src={nextIcon} width={60} height={60} alt="next icon" className="rotate-180 rotate" />
             </div>
           ) : (
             <div className="absolute left-0 w-[4vw] h-[14vh] cursor-auto"></div>
           )}
-          <div className="absolute right-0 w-[4vw] h-[16vh] flex items-center justify-center  opacity-50 bg-blackTransparent hover:opacity-100" onClick={nextMovies}>
-            <Image src={nextIcon} width={40} height={40} alt="next icon" />
+          <div className="cursor-pointer absolute right-0 w-[4vw] h-[16vh] flex items-center justify-center  opacity-60 bg-blackTransparent hover:opacity-100" onClick={nextMovies}>
+            <Image src={nextIcon} width={60} height={60} alt="next icon" />
           </div>
         </div>
       </div>

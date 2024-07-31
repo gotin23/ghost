@@ -148,7 +148,7 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
   const handleMouseEnter = () => {
     const timeout = setTimeout(() => {
       setCardIsHovered(true);
-    }, 200); // Délai de 2 secondes
+    }, 200);
     setHoverTimeout(timeout);
   };
 

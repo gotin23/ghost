@@ -9,7 +9,7 @@ const SearchResultSlice = createSlice({
   },
   reducers: {
     setResults: (state, action) => {
-      const resultsFiltered = action.payload.response.results.filter((el) => el.media_type !== "uii");
+      const resultsFiltered = action.payload.response.results.filter((el) => el.media_type !== "person");
       console.log(resultsFiltered);
       if (resultsFiltered.length > 0) {
         resultsFiltered.forEach((element) => {

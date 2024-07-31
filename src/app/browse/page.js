@@ -16,10 +16,11 @@ import Image from "next/image";
 const Browse = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.log.token);
-  const featuredMedia = useSelector((state) => state.featuredMedia.id);
+  // const featuredMedia = useSelector((state) => state.featuredMedia.id);
 
   const router = useRouter();
   const [idFeaturedMediaDisplay, setFeaturedMediaDisplay] = useState("");
+  console.log(idFeaturedMediaDisplay, " id");
   // const playerRef = useRef(null);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const Browse = () => {
       router.push("/");
     }
   }, []);
-  console.log("Loading");
+
   useEffect(() => {
     const fetchPopularMovies = async () => {
       try {
@@ -47,6 +48,7 @@ const Browse = () => {
         const resultWithUS = release.results.filter((el) => {
           return el.iso_3166_1 === "US";
         });
+        // console.log(resultWithUS);
 
         dispatch(setReleaseDate(resultWithUS));
       } catch (error) {
@@ -89,14 +91,12 @@ const Browse = () => {
       {token && (
         <main className="flex flex-col min-h-screen justify-center items-center w-full relative">
           <FeaturedMediaDisplay id={idFeaturedMediaDisplay} />
-          <div className=" w-full pl-[4vw]  mt-[-180px] z-10 mb-48">
+          {/* <div className=" w-full pl-[4vw]  mt-[-180px] z-10 mb-48">
             <MediaSlider title={"Popular Movies"} url={"3/movie/popular?language=en-US&page="} dispatchMedias={setPopularMoviesList} data={"popularMovies"} />
             <MediaSlider title={"Top rated"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />
             <MediaSlider title={"Upcoming"} url={"3/movie/upcoming?language=en-US&page="} dispatchMedias={setUpcomingMoviesList} data={"upcomingMovies"} />
             <MediaSlider title={"Now played"} url={"3/movie/now_playing?language=en-US&page="} dispatchMedias={setNowPlayedMoviesList} data={"nowPlayedMovies"} />
-            {/* <MediaSlider title={"For you"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />
-            <MediaSlider title={"Selected"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} /> */}
-          </div>
+          </div> */}
         </main>
       )}
     </>

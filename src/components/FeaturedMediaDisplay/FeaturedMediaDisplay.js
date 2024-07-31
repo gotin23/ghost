@@ -9,10 +9,10 @@ import Image from "next/image";
 import Player from "../Player/Player";
 import MoreInfo from "../MoreInfo/MoreInfo";
 
-const FeaturedMediaDisplay = () => {
+const FeaturedMediaDisplay = ({ id }) => {
   const featuredMediaId = useSelector((state) => state.featuredMedia.id);
   const featuredMediaDisplay = useSelector((state) => state.featuredMedia.featuredMediaDisplay);
-  console.log(featuredMediaDisplay);
+  console.log(featuredMediaDisplay, "featured media display");
   const [videoId, setVideoId] = useState("");
   const releaseDate = useSelector((state) => state.featuredMedia.releaseDate);
   const [togglePlayer, setTogglePlayer] = useState(false);
@@ -100,22 +100,25 @@ const FeaturedMediaDisplay = () => {
 
   useEffect(() => {
     const fetchPopularMovies = async () => {
-      try {
-        const response = await tdmbApiAction("get", `3/movie/${featuredMediaId}?language=en-US`);
-        // Dispatch l'action setSignIn avec le token reçu de l'API
+      if (featuredMediaId) {
+        try {
+          const response = await tdmbApiAction("get", `3/movie/${featuredMediaId}?language=en-US`);
+          // Dispatch l'action setSignIn avec le token reçu de l'API
 
-        dispatch(setFeaturedMediaDisplay({ response }));
-        // redirection vers son profile
-        // navigate("/user");
+          dispatch(setFeaturedMediaDisplay({ response }));
+          console.log(response, "response id");
+          // redirection vers son profile
+          // navigate("/user");
 
-        // initPlayer();
-      } catch (error) {
-        // Gérer les erreurs de la requête API
-        console.log(error);
+          // initPlayer();
+        } catch (error) {
+          // Gérer les erreurs de la requête API
+          console.log(error);
+        }
       }
     };
     fetchPopularMovies();
-  }, []);
+  }, [featuredMediaId]);
 
   const playMedia = () => {
     setTogglePlayer(true);
@@ -125,13 +128,13 @@ const FeaturedMediaDisplay = () => {
     // featuredMediaDisplay.genres.forEach((element, idx) => {
     // const genre = genresArray.filter((el) => el.id === element.id);
     const genre = featuredMediaDisplay.genres;
-    console.log(genre, featuredMediaDisplay.genres);
+
     genre.forEach((element, idx) => {
       genreList += element.name + (idx === genre.length - 1 ? "" : " • ");
     });
     // genreList += genre[0].name + (idx === genres.length - 1 || genres.length === 1 ? "" : " • ");
     // });
-    console.log(genreList);
+
     return genreList;
   };
   useEffect(() => {
@@ -152,13 +155,17 @@ const FeaturedMediaDisplay = () => {
   }, []);
   return (
     <div className="w-full h-[100vh] relative">
-      <Image
-        src={`https://image.tmdb.org/t/p/original${featuredMediaDisplay.backdrop_path}`}
-        width={1920}
-        height={1080}
-        className="w-[100%] h-[100%] object-cover  brightness-75"
-        alt={"featured media image"}
-      />
+      {featuredMediaDisplay.backdrop_path && (
+        // <Image
+        //   src={`https://image.tmdb.org/t/p/original${featuredMediaDisplay.backdrop_path}`}
+        //   width={1920}
+        //   height={1080}
+        //   className="w-[100%] h-[100%] object-cover  brightness-75"
+        //   alt={"featured media image"}
+        // />
+
+        <Image src={`https://image.tmdb.org/t/p/original${featuredMediaDisplay.backdrop_path}`} fill className="brightness-75 object-cover" alt="featured media image" />
+      )}
       <div className="absolute left-16 bottom-[30vh] min-h-[200px] w-[40vw] ">
         <h1 className="text-6xl text-white">{featuredMediaDisplay.title}</h1>
         <p className="mt-5 text-white text-xl">{featuredMediaDisplay.overview}</p>
