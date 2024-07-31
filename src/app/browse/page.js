@@ -29,35 +29,35 @@ const Browse = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const fetchPopularMovies = async () => {
-      try {
-        const response = await tdmbApiAction("get", "3/discover/movie?include_adult=false&include_video=true&language=en-US&page=20&sort_by=popularity.desc");
-        // Dispatch l'action setSignIn avec le token reçu de l'API
-        // dispatch(setSignIn({ response }));
-        // redirection vers son profile
-        // navigate("/user");
+  // useEffect(() => {
+  //   const fetchPopularMovies = async () => {
+  //     try {
+  //       const response = await tdmbApiAction("get", "3/discover/movie?include_adult=false&include_video=true&language=en-US&page=20&sort_by=popularity.desc");
+  //       // Dispatch l'action setSignIn avec le token reçu de l'API
+  //       // dispatch(setSignIn({ response }));
+  //       // redirection vers son profile
+  //       // navigate("/user");
 
-        const idArrays = response.results.map((el) => el.id);
-        const randomIndex = Math.floor(Math.random() * idArrays.length);
+  //       const idArrays = response.results.map((el) => el.id);
+  //       const randomIndex = Math.floor(Math.random() * idArrays.length);
 
-        dispatch(setFeaturedMediaId(idArrays[randomIndex]));
-        setFeaturedMediaDisplay(idArrays[randomIndex]);
-        const release = await tdmbApiAction("get", `3/movie/${idArrays[randomIndex]}/release_dates`);
-        // initPlayer();
-        const resultWithUS = release.results.filter((el) => {
-          return el.iso_3166_1 === "US";
-        });
-        // console.log(resultWithUS);
+  //       dispatch(setFeaturedMediaId(idArrays[randomIndex]));
+  //       setFeaturedMediaDisplay(idArrays[randomIndex]);
+  //       const release = await tdmbApiAction("get", `3/movie/${idArrays[randomIndex]}/release_dates`);
+  //       // initPlayer();
+  //       const resultWithUS = release.results.filter((el) => {
+  //         return el.iso_3166_1 === "US";
+  //       });
+  //       // console.log(resultWithUS);
 
-        dispatch(setReleaseDate(resultWithUS));
-      } catch (error) {
-        // Gérer les erreurs de la requête API
-        console.log(error);
-      }
-    };
-    fetchPopularMovies();
-  }, []);
+  //       dispatch(setReleaseDate(resultWithUS));
+  //     } catch (error) {
+  //       // Gérer les erreurs de la requête API
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchPopularMovies();
+  // }, []);
   // const initPlayer = () => {
   //   if (window.YT && window.YT.Player) {
   //     // Si l'API YouTube est déjà chargée, initialisez le lecteur
@@ -90,7 +90,7 @@ const Browse = () => {
     <>
       {token && (
         <main className="flex flex-col min-h-screen justify-center items-center w-full relative">
-          <FeaturedMediaDisplay id={idFeaturedMediaDisplay} />
+          <FeaturedMediaDisplay />
           {/* <div className=" w-full pl-[4vw]  mt-[-180px] z-10 mb-48">
             <MediaSlider title={"Popular Movies"} url={"3/movie/popular?language=en-US&page="} dispatchMedias={setPopularMoviesList} data={"popularMovies"} />
             <MediaSlider title={"Top rated"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />

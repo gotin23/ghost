@@ -2,6 +2,7 @@
 import { tdmbApiAction } from "@/Services/TmdbApi/TmdbApi";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setFeaturedMediaId, setReleaseDate } from "@/redux/Reducers/FeaturedMediaReducer";
 import { setFeaturedMediaDisplay } from "@/redux/Reducers/FeaturedMediaReducer";
 import playIcon from "../../../public/assets/icons/play-icon.svg";
 import infoIcon from "../../../public/assets/icons/info-icon.svg";
@@ -9,7 +10,7 @@ import Image from "next/image";
 import Player from "../Player/Player";
 import MoreInfo from "../MoreInfo/MoreInfo";
 
-const FeaturedMediaDisplay = ({ id }) => {
+const FeaturedMediaDisplay = () => {
   const featuredMediaId = useSelector((state) => state.featuredMedia.id);
   const featuredMediaDisplay = useSelector((state) => state.featuredMedia.featuredMediaDisplay);
   console.log(featuredMediaDisplay, "featured media display");
@@ -97,6 +98,35 @@ const FeaturedMediaDisplay = ({ id }) => {
       name: "Western",
     },
   ];
+  useEffect(() => {
+    const fetchPopularMovies = async () => {
+      try {
+        const response = await tdmbApiAction("get", "3/discover/movie?include_adult=false&include_video=true&language=en-US&page=20&sort_by=popularity.desc");
+        // Dispatch l'action setSignIn avec le token reçu de l'API
+        // dispatch(setSignIn({ response }));
+        // redirection vers son profile
+        // navigate("/user");
+
+        const idArrays = response.results.map((el) => el.id);
+        const randomIndex = Math.floor(Math.random() * idArrays.length);
+
+        dispatch(setFeaturedMediaId(idArrays[randomIndex]));
+        setFeaturedMediaDisplay(idArrays[randomIndex]);
+        const release = await tdmbApiAction("get", `3/movie/${idArrays[randomIndex]}/release_dates`);
+        // initPlayer();
+        const resultWithUS = release.results.filter((el) => {
+          return el.iso_3166_1 === "US";
+        });
+        // console.log(resultWithUS);
+
+        dispatch(setReleaseDate(resultWithUS));
+      } catch (error) {
+        // Gérer les erreurs de la requête API
+        console.log(error);
+      }
+    };
+    fetchPopularMovies();
+  }, []);
 
   useEffect(() => {
     const fetchPopularMovies = async () => {
@@ -118,7 +148,7 @@ const FeaturedMediaDisplay = ({ id }) => {
       }
     };
     fetchPopularMovies();
-  }, [featuredMediaId]);
+  }, []);
 
   const playMedia = () => {
     setTogglePlayer(true);

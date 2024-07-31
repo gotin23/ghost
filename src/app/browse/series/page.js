@@ -18,35 +18,36 @@ const Series = () => {
       router.push("/");
     }
   }, []);
-  useEffect(() => {
-    const fetchPopularMovies = async () => {
-      try {
-        const response = await tdmbApiAction("get", "3/discover/movie?include_adult=false&include_video=true&language=en-US&page=20&sort_by=popularity.desc");
-        // Dispatch l'action setSignIn avec le token reçu de l'API
-        // dispatch(setSignIn({ response }));
-        // redirection vers son profile
-        // navigate("/user");
 
-        const idArrays = response.results.map((el) => el.id);
-        const randomIndex = Math.floor(Math.random() * idArrays.length);
+  // useEffect(() => {
+  //   const fetchPopularMovies = async () => {
+  //     try {
+  //       const response = await tdmbApiAction("get", "3/discover/movie?include_adult=false&include_video=true&language=en-US&page=20&sort_by=popularity.desc");
+  //       // Dispatch l'action setSignIn avec le token reçu de l'API
+  //       // dispatch(setSignIn({ response }));
+  //       // redirection vers son profile
+  //       // navigate("/user");
 
-        dispatch(setFeaturedMediaId(idArrays[randomIndex]));
-        setFeaturedMediaDisplay(idArrays[randomIndex]);
-        const release = await tdmbApiAction("get", `3/movie/${idArrays[randomIndex]}/release_dates`);
-        // initPlayer();
-        const resultWithUS = release.results.filter((el) => {
-          return el.iso_3166_1 === "US";
-        });
-        // console.log(resultWithUS);
+  //       const idArrays = response.results.map((el) => el.id);
+  //       const randomIndex = Math.floor(Math.random() * idArrays.length);
 
-        dispatch(setReleaseDate(resultWithUS));
-      } catch (error) {
-        // Gérer les erreurs de la requête API
-        console.log(error);
-      }
-    };
-    fetchPopularMovies();
-  }, []);
+  //       dispatch(setFeaturedMediaId(idArrays[randomIndex]));
+  //       setFeaturedMediaDisplay(idArrays[randomIndex]);
+  //       const release = await tdmbApiAction("get", `3/movie/${idArrays[randomIndex]}/release_dates`);
+  //       // initPlayer();
+  //       const resultWithUS = release.results.filter((el) => {
+  //         return el.iso_3166_1 === "US";
+  //       });
+  //       // console.log(resultWithUS);
+
+  //       dispatch(setReleaseDate(resultWithUS));
+  //     } catch (error) {
+  //       // Gérer les erreurs de la requête API
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchPopularMovies();
+  // }, []);
 
   return (
     <>
