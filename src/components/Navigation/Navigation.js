@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setProfileSelected } from "@/redux/Reducers/ProfileSelectedReducer";
 import { setLogout } from "@/redux/Reducers/LogReducer";
+import { setReset } from "@/redux/Reducers/FeaturedMediaReducer";
 import triangleIcon from "../../../public/assets/icons/triangle-icon.svg";
 import triangleColorIcon from "../../../public/assets/icons/triangle-color-icon.svg";
 import logoutIcon from "../../../public/assets/icons/logout-icon.svg";
@@ -77,33 +78,36 @@ const Navigation = ({ style }) => {
     setSearchValue(e.target.value);
     console.log("ok");
   };
+  const resetFeaturedMediaDisplayed = () => {
+    dispatch(setReset());
+  };
 
   return (
     <>
       <nav className={`h-[60px] w-full ${style} fixed top-0 flex justify-between py-0 px-8 z-50`}>
         {/* Navigation */}
         <div className="flex">
-          <Link href={"/browse"} className={"h-full flex items-center"}>
+          <Link href={"/browse"} onClick={resetFeaturedMediaDisplayed} className={"h-full flex items-center"}>
             <Title style=" text-primary cursor-pointer text-3xl" level={2} text={"Ghost"} />
           </Link>
           <ul className="flex ml-20">
             <li>
-              <Link href={"/browse"} className={"h-full flex items-center text-white hover:text-grey"}>
+              <Link href={"/browse"} onClick={resetFeaturedMediaDisplayed} className={"h-full flex items-center text-white hover:text-grey"}>
                 Home
               </Link>
             </li>
             <li>
-              <Link href={"/browse/series"} className={"h-full flex items-center text-white ml-5 hover:text-grey"}>
+              <Link href={"/browse/series"} onClick={resetFeaturedMediaDisplayed} className={"h-full flex items-center text-white ml-5 hover:text-grey"}>
                 Series
               </Link>
             </li>
             <li>
-              <Link href={"/browse/movies"} className={"h-full flex items-center  text-white ml-5 hover:text-grey"}>
+              <Link href={"/browse/movies"} onClick={resetFeaturedMediaDisplayed} className={"h-full flex items-center  text-white ml-5 hover:text-grey"}>
                 Movies
               </Link>
             </li>
             <li>
-              <Link href={"/browse/watchlist"} className={"h-full flex items-center  text-white ml-5 hover:text-grey"}>
+              <Link href={"/browse/watchlist"} onClick={resetFeaturedMediaDisplayed} className={"h-full flex items-center  text-white ml-5 hover:text-grey"}>
                 My watchlist
               </Link>
             </li>

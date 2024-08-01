@@ -21,11 +21,18 @@ const FeaturedMediaSlice = createSlice({
         state.releaseDate = action.payload[0].release_dates;
       }
     },
+    setReset: (state) => {
+      state.id = "";
+      state.featuredMediaDisplay = [];
+      state.releaseDate = [];
+    },
   },
 });
 
-export const { setFeaturedMediaId } = FeaturedMediaSlice.actions;
-export const { setFeaturedMediaDisplay } = FeaturedMediaSlice.actions;
-export const { setReleaseDate } = FeaturedMediaSlice.actions;
+// export const { setFeaturedMediaId } = FeaturedMediaSlice.actions;
+// export const { setFeaturedMediaDisplay } = FeaturedMediaSlice.actions;
+// export const { setReleaseDate } = FeaturedMediaSlice.actions;
+// export const { setReset } = FeaturedMediaSlice.actions;
+export const { setFeaturedMediaId, setFeaturedMediaDisplay, setReleaseDate, setReset } = FeaturedMediaSlice.actions;
 
 export default FeaturedMediaSlice.reducer;

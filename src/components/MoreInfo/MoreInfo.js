@@ -40,7 +40,7 @@ const MoreInfo = ({ id, videoId, title, genres, average, overview, style, closeM
           <iframe
             className="w-full h-full"
             src={`https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1&showinfo=0&controls=0&iv_load_policy=3&autohide=1`}
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen; autohide"
             allowFullScreen
           ></iframe>
