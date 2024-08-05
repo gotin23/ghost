@@ -18,6 +18,9 @@ const PopularMoviesSlice = createSlice({
         state.popularMoviesList.push(el);
       });
     },
+    setResetPopularMoviesList: (state, action) => {
+      state.popularMoviesList = [];
+    },
     // setReleaseDate: (state, action) => {
     //   console.log(action.payload, "regarde par la lalala");
     //   if (action.payload[0].release_dates.length > 1) {
@@ -32,5 +35,6 @@ const PopularMoviesSlice = createSlice({
 export const { setPopularMoviesId } = PopularMoviesSlice.actions;
 export const { setPopularMoviesList } = PopularMoviesSlice.actions;
 export const { setReleaseDate } = PopularMoviesSlice.actions;
+export const { setResetPopularMoviesList } = PopularMoviesSlice.actions;
 
 export default PopularMoviesSlice.reducer;

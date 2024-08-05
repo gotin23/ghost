@@ -91,12 +91,12 @@ const Browse = () => {
       {token && (
         <main className="flex flex-col min-h-screen justify-center items-center w-full relative">
           <FeaturedMediaDisplay />
-          {/* <div className=" w-full pl-[4vw]  mt-[-180px] z-10 mb-48">
+          <div className=" w-full pl-[80px]  mt-[-180px] z-10 mb-48">
             <MediaSlider title={"Popular Movies"} url={"3/movie/popular?language=en-US&page="} dispatchMedias={setPopularMoviesList} data={"popularMovies"} />
-            <MediaSlider title={"Top rated"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />
+            {/* <MediaSlider title={"Top rated"} url={"3/movie/top_rated?language=en-US&page="} dispatchMedias={setTopRatedMoviesList} data={"topRatedMovies"} />
             <MediaSlider title={"Upcoming"} url={"3/movie/upcoming?language=en-US&page="} dispatchMedias={setUpcomingMoviesList} data={"upcomingMovies"} />
-            <MediaSlider title={"Now played"} url={"3/movie/now_playing?language=en-US&page="} dispatchMedias={setNowPlayedMoviesList} data={"nowPlayedMovies"} />
-          </div> */}
+            <MediaSlider title={"Now played"} url={"3/movie/now_playing?language=en-US&page="} dispatchMedias={setNowPlayedMoviesList} data={"nowPlayedMovies"} /> */}
+          </div>
         </main>
       )}
     </>

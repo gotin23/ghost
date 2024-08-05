@@ -8,7 +8,7 @@ import chevronIcon from "../../../public/assets/icons/chevron-icon.svg";
 import MoreInfo from "../MoreInfo/MoreInfo";
 import loader from "../../../public/assets/icons/spinner.svg";
 
-const MovieCard = ({ title, image, average, genres, id, overview }) => {
+const MovieCard = ({ title, image, average, genres, id, overview, height, width }) => {
   const [cardIsHovered, setCardIsHovered] = useState(false);
   const [toggleMoreInfo, setToggleMoreInfo] = useState(false);
   const [videoId, setVideoId] = useState("");
@@ -166,15 +166,16 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
   return (
     <>
       <div className="relative">
-        {cardIsHovered && <div className="w-[18.2vw]"></div>}
+        {cardIsHovered && <div style={{ width: width + "px" }}></div>}
         <div
-          className={`bg-blackLight transition-all w-[18.2vw] cursor-pointer ${
-            cardIsHovered && "scale-x-[1.4] scale-y-[1.4] z-[100] h-[320px] absolute  bottom-[-10rem] left-0  rounded-lg overflow-hidden shadow-lg shadow-[#03020b] "
+          style={{ width: width + "px" }}
+          className={`bg-blackLight transition-all cursor-pointer ${
+            cardIsHovered && "scale-x-[1.4] scale-y-[1.4] z-[100] h-[330px] absolute  bottom-[-0rem] left-0  rounded-lg overflow-hidden shadow-lg shadow-[#03020b] "
           }`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div className="h-[16vh] relative">
+          <div style={{ height: height + "px" }} className="relative">
             {cardIsHovered ? (
               <iframe
                 className="w-full h-full"
@@ -184,7 +185,7 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
                 allowFullScreen
               ></iframe>
             ) : (
-              <div className="h-[16vh] overflow-hidden">
+              <div className="overflow-hidden">
                 <Title lvl={3} text={title} style={"text-white bg-blackTransparent px-1 z-50 absolute bottom-3 left-3 text-md text-nowrap text-ellipsis overflow-hidden"} />
                 {!imageLoaded && (
                   <div className="w-[100%] h-[100%] flex justify-center align-middle">
@@ -204,7 +205,7 @@ const MovieCard = ({ title, image, average, genres, id, overview }) => {
             )}
           </div>
           {cardIsHovered && (
-            <div className="h-[200px] w-full p-3 pb-10">
+            <div className=" w-full p-3 pb-10">
               <div className="flex w-full justify-between">
                 <div className="flex mt-2">
                   <div className="rounded-[50%] cursor-pointer w-[32px]  h-[32px] bg-white flex justify-center items-center mr-2 hover:bg-grey">
